@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="common_hint">#b8b7b7</color>
+    <color name="common_gray">#919191</color>
+    <color name="common_blue">#0da6df</color>
+    <color name="common_black">#313131</color>
+    <color name="common_green">#69b423</color>
+    <color name="common_red">#ff0000</color>
+    <color name="common_orange">#f88f10</color>
+    <color name="common_warning_color">#f88f10</color>
+    <color name="common_dialog_tittle">#313131</color>
+    
+    <color name="transparent">#00000000</color>
+</resources>
