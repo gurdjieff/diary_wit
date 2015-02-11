@@ -1,3 +1,6 @@
+
+
+
 package com.diary.db;
 
 import java.util.List;
@@ -12,10 +15,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.EditText;
 
-public class DiaryDao {
+public class DBManager {
 	private DataBaseHelper helper = null;
 
-	public DiaryDao(Context context) {
+	public DBManager(Context context) {
 		// TODO Auto-generated constructor stub
 		helper = new DataBaseHelper(context);
 	}
@@ -93,3 +96,4 @@ public class DiaryDao {
 		db.close();
 	}
 }
+

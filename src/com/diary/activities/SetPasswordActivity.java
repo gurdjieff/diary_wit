@@ -1,6 +1,4 @@
 package com.diary.activities;
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -48,7 +46,6 @@ public class SetPasswordActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				finish();
-				overridePendingTransition(R.anim.push_below_in, R.anim.push_below_out);
 			}
 		});
 	}
@@ -96,7 +93,6 @@ public class SetPasswordActivity extends Activity {
 			editor.putString("passway", null);
 			editor.commit();
 			finish();
-			overridePendingTransition(R.anim.push_below_in, R.anim.push_below_out);
 			Toast.makeText(SetPasswordActivity.this, R.string.pass_cancel, Toast.LENGTH_LONG).show();
 		}
 	}

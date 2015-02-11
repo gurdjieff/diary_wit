@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.diary.db.DiaryDao;
+import com.diary.db.DBManager;
 import com.diary.models.Diary;
 
 import app.diary.R;
@@ -90,7 +90,7 @@ public class AddDiaryActivity extends Activity {
 	private void back(){
 		if ((!diaryTitle.getText().toString().trim().equals("")) && 
 				(!diaryInfo.getText().toString().trim().equals(""))) {
-			DiaryDao diaryDao = new DiaryDao(AddDiaryActivity.this);
+			DBManager diaryDao = new DBManager(AddDiaryActivity.this);
 			Diary diary = new Diary();
 			diary.setDate(timeTextView.getText().toString());
 			diary.setWeek(weekTextView.getText().toString());

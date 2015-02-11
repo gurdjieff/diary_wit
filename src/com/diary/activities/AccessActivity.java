@@ -38,10 +38,11 @@ public class AccessActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				sp=getSharedPreferences("pass", Context.MODE_PRIVATE);
-				String passWay=sp.getString("passway", null);
+				String passwordStr=sp.getString("password", null);
 				Intent intent = null;
 
-				if (passWay == null) {
+//				System.out.println(passwordStr);
+				if (passwordStr == null) {
 					intent = new Intent(AccessActivity.this, MainActivity.class);  
 			        startActivity(intent);
 			        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);

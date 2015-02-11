@@ -32,8 +32,8 @@
     <string name="detail_diary_info">detailed diary</string>
     <string name="op">operate</string>
     <string name="delete">delete</string>
-    <string name="backups">backups</string>
-    <string name="empty">empty</string>
+    <string name="backups">backup to dropbox</string>
+    <string name="empty">empty all diaries</string>
     <string name="delete_sure">are you sure to delete！</string>
     <string name="ok">sure</string>
     <string name="delete_over">delete success！</string>
@@ -72,7 +72,6 @@
 	<string name="advice_info">your advice:</string>
 	<string name="submit">submit</string>
 	<string name="input_name">please input your name</string>
-	<string name="theme">advice</string>
 	<string name="detail_info">please complete information！</string>
 	<string name="cancel_password">cancel password</string>
 	<string name="password">password</string>

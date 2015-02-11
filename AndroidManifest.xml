@@ -8,7 +8,7 @@
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="20" />
 
     <application
         android:name="DiaryAppliction" 
@@ -21,13 +21,22 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        
         <activity
-            android:name="com.diary.activities.AccessActivity"
-            android:label="@string/app_name" >
+            android:name="com.diary.activities.SplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.diary.activities.AccessActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait" >
+            
             
         </activity>
         <activity
@@ -61,6 +70,20 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        
+        <activity
+      android:name="com.dropbox.client2.android.AuthActivity"
+      android:launchMode="singleTask"
+      android:configChanges="orientation|keyboard">
+      <intent-filter>
+        <!-- Change this to be db- followed by your app key -->
+        <data android:scheme="db-o5ibaq1ztssayeg" />
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+        
     </application>
     
 
