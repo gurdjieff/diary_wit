@@ -17,7 +17,6 @@
             android:layout_width="54dip"
             android:layout_height="fill_parent"
             android:layout_gravity="center"
-            android:background="@drawable/head_blue_background"
             android:clickable="true"
             android:scaleType="centerInside"
             android:src="@drawable/back" />

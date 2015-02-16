@@ -273,6 +273,8 @@ public class LookDiaryActivity extends Activity {
 		
 	    if (mLoggedIn) {
 		    new Thread(networkTask).start(); 
+	        Toast toast = Toast.makeText(this, "save successsful", Toast.LENGTH_SHORT);
+	        toast.show();
 		} else {
             if (USE_OAUTH1) {
                 mApi.getSession().startAuthentication(LookDiaryActivity.this);
