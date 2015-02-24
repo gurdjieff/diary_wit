@@ -32,8 +32,6 @@ public class AccessActivity extends Activity {
 		access = (Button)this.findViewById(R.id.access);
 		access.setOnClickListener(new OnClickListener() {
 			
-			
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
