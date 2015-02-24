@@ -1,13 +1,17 @@
 package app.diary;
 
 
+import com.diary.activities.MainActivity;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
 import com.parse.Parse;
 import com.parse.ParseCrashReporting;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.parse.PushService;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -31,11 +35,7 @@ public class DiaryAppliction extends Application {
 
 	    // Initialize Crash Reporting.
 	    ParseCrashReporting.enable(this);
-
-	    // Enable Local Datastore.
 	    Parse.enableLocalDatastore(this);
-//
-//	    // Add your initialization code here
 	    Parse.initialize(this, "C6wKEYWYhEuTuLsmCzk4PZU20mCOqZRkhcJ2EwXg", "ayWeZRpmVaQ4M1ZNZoSWIj9AJ6I0RPEXjHZNwNUp");
 //
 //
@@ -44,7 +44,11 @@ public class DiaryAppliction extends Application {
 //	    // Optionally enable public read access.
 //	     defaultACL.setPublicReadAccess(true);
 //	    ParseACL.setDefaultACL(defaultACL, true);
-	    
+//	    PushService.subscribe(this, "", MainActivity.class);
+//		PushService.setDefaultPushCallback(this, MainActivity.class);
+//	    ParsePush.subscribeInBackground("Giants");
+//	    ParsePush.unsubscribeInBackground("Giants");
+		ParseInstallation.getCurrentInstallation().saveInBackground(); 
 
 	    
 	  }
