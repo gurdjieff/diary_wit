@@ -90,7 +90,7 @@ public class SetPasswordActivity extends Activity {
 		public void onClick(View v) {
 			preferences=getSharedPreferences("pass", Context.MODE_PRIVATE);
 			Editor editor=preferences.edit();
-			editor.putString("passway", null);
+			editor.putString("password", null);
 			editor.commit();
 			finish();
 			Toast.makeText(SetPasswordActivity.this, R.string.pass_cancel, Toast.LENGTH_LONG).show();

@@ -1,7 +1,6 @@
 package app.diary;
 
 
-import com.diary.activities.MainActivity;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.session.AccessTokenPair;
@@ -9,9 +8,7 @@ import com.dropbox.client2.session.AppKeyPair;
 import com.parse.Parse;
 import com.parse.ParseCrashReporting;
 import com.parse.ParseInstallation;
-import com.parse.ParsePush;
 import com.parse.ParseUser;
-import com.parse.PushService;
 
 import android.app.Application;
 import android.content.SharedPreferences;
