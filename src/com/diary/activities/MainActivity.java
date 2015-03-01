@@ -1,10 +1,23 @@
 package com.diary.activities;
+import com.facebook.AppEventsLogger;
+import com.facebook.FacebookAuthorizationException;
+import com.facebook.FacebookOperationCanceledException;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.facebook.model.GraphUser;
+import com.facebook.widget.FacebookDialog;
+import com.facebook.widget.LoginButton;
+import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
+
 import app.diary.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -18,6 +31,21 @@ public class MainActivity extends Activity {
 	private ImageButton passDiary = null;
 	private ImageButton exitDiary = null;
 	private Button feedbackButton = null;
+    private LoginButton loginButton;
+    
+   
+    private UiLifecycleHelper uiHelper;
+
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            onSessionStateChange(session, state, exception);
+        }
+    };
+    
+    private void onSessionStateChange(Session session, SessionState state, Exception exception) {
+
+    }
 
 	
 	@Override
@@ -25,6 +53,10 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.diary_view);
+		
+		 uiHelper = new UiLifecycleHelper(this, callback);
+	     uiHelper.onCreate(savedInstanceState);
+		
 		addDiary = (ImageButton) this.findViewById(R.id.diary_add);
 		lookDiary = (ImageButton) this.findViewById(R.id.diary_look);
 		searchDiary = (ImageButton) this.findViewById(R.id.diary_search);
@@ -38,9 +70,44 @@ public class MainActivity extends Activity {
 		passDiary.setOnClickListener(new MyListener());
 		exitDiary.setOnClickListener(new MyListener());
 		feedbackButton.setOnClickListener(new MyListener());
-
 		
+		loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
+            @Override
+            public void onUserInfoFetched(GraphUser user) {
+            	if (user != null && user.getName() != null) {
+            		ParseObject facebookUser = new ParseObject("facebookUsers");
+                	facebookUser.put("userName", user.getName());
+                	facebookUser.saveInBackground();
+				}
+            	
+            }
+        });
 	}
+
+	
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	  super.onActivityResult(requestCode, resultCode, data);
+      uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
+	  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+	  
+	}
+	
+	private FacebookDialog.Callback dialogCallback = new FacebookDialog.Callback() {
+        @Override
+        public void onError(FacebookDialog.PendingCall pendingCall, Exception error, Bundle data) {
+            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
+        }
+
+        @Override
+        public void onComplete(FacebookDialog.PendingCall pendingCall, Bundle data) {
+            Log.d("HelloFacebook", "Success!");
+        }
+    };
+	
 	
 	private void exitDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

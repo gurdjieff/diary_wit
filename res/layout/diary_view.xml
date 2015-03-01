@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:id="@+id/diary_view_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        
         android:orientation="horizontal" >
 
         <ImageButton
@@ -18,27 +18,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
-            
             android:src="@drawable/diary_add" />
     </LinearLayout>
-	
-    
+
     <LinearLayout
         android:id="@+id/look"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
         android:layout_below="@+id/add"
+        android:layout_marginRight="10dp"
         android:orientation="vertical" >
 
         <ImageButton
             android:id="@+id/diary_look"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="matrix"
             android:background="#00000000"
-            
+            android:scaleType="matrix"
             android:src="@drawable/diary_look" />
     </LinearLayout>
 
@@ -46,57 +43,53 @@
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/look"
         android:layout_marginLeft="10dp"
-                    android:background="#00000000"
-        
-        android:layout_below="@+id/look" >
+        android:background="#00000000" >
 
         <ImageButton
             android:id="@+id/diary_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
             android:scaleType="matrix"
-                        android:background="#00000000"
-            
             android:src="@drawable/diary_search" />
     </LinearLayout>
-	
+
     <LinearLayout
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
         android:layout_alignParentRight="true"
-        android:background="#00000000"
-        android:layout_below="@+id/search" >
+        android:layout_below="@+id/search"
+        android:layout_marginRight="10dp"
+        android:background="#00000000" >
 
         <ImageButton
             android:id="@+id/diary_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00000000"
             android:scaleType="matrix"
-                        android:background="#00000000"
-            
             android:src="@drawable/diary_password" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/password" >
+        android:layout_below="@+id/password"
+        android:layout_marginRight="10dp" >
 
         <ImageButton
             android:id="@+id/diary_exit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="matrix"
             android:background="#00000000"
-            
+            android:scaleType="matrix"
             android:src="@drawable/diary_exit" />
     </LinearLayout>
-    
+
     <RelativeLayout
         android:layout_width="57dp"
         android:layout_height="57dp"
@@ -107,10 +100,17 @@
             android:id="@+id/feedback_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@drawable/advice"
-            
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:background="@drawable/advice" />
     </RelativeLayout>
-    
-    
+
+    <com.facebook.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        facebook:confirm_logout="false"
+        facebook:fetch_user_info="true" />
+
 </RelativeLayout>
