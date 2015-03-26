@@ -10,6 +10,12 @@
     <color name="common_orange">#f88f10</color>
     <color name="common_warning_color">#f88f10</color>
     <color name="common_dialog_tittle">#313131</color>
+     <color name="red">#FF0000</color>
+    <color name="blue">#DDDDFF</color>
+    <color name="green">#2E8B57</color>
+    <color name="rblue">#6495ED</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="registbg">#F5F5F5</color>
     
     <color name="transparent">#00000000</color>
 </resources>

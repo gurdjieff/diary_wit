@@ -82,6 +82,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" >
         </activity>
+        
+         <activity
+            android:name="com.diary.activities.LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        
         <activity
             android:name="com.diary.activities.AdviceActivity"
             android:launchMode="singleTop"

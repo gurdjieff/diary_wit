@@ -211,6 +211,7 @@ containing a value of this type.
         public static final int title_text=0x7f010003;
     }
     public static final class color {
+        public static final int blue=0x7f060016;
         public static final int com_facebook_blue=0x7f060002;
         public static final int com_facebook_likeboxcountview_border_color=0x7f060009;
         public static final int com_facebook_likeboxcountview_text_color=0x7f06000a;
@@ -231,8 +232,13 @@ containing a value of this type.
         public static final int common_orange=0x7f060012;
         public static final int common_red=0x7f060011;
         public static final int common_warning_color=0x7f060013;
-        public static final int transparent=0x7f060015;
+        public static final int green=0x7f060017;
+        public static final int rblue=0x7f060018;
+        public static final int red=0x7f060015;
+        public static final int registbg=0x7f06001a;
+        public static final int transparent=0x7f06001b;
         public static final int white=0x7f06000b;
+        public static final int yellow=0x7f060019;
     }
     public static final class dimen {
         public static final int com_facebook_likeboxcountview_border_radius=0x7f050015;
@@ -293,7 +299,7 @@ containing a value of this type.
         public static final int com_facebook_list_section_header_background=0x7f020018;
         public static final int com_facebook_loginbutton_silver=0x7f020019;
         public static final int com_facebook_logo=0x7f02001a;
-        public static final int com_facebook_picker_default_separator_color=0x7f02003d;
+        public static final int com_facebook_picker_default_separator_color=0x7f02003e;
         public static final int com_facebook_picker_item_background=0x7f02001b;
         public static final int com_facebook_picker_list_focused=0x7f02001c;
         public static final int com_facebook_picker_list_longpressed=0x7f02001d;
@@ -326,26 +332,31 @@ containing a value of this type.
         public static final int diary_view_bg=0x7f020038;
         public static final int head_blue_background=0x7f020039;
         public static final int ic_launcher=0x7f02003a;
-        public static final int main_bg=0x7f02003b;
-        public static final int op=0x7f02003c;
+        public static final int login=0x7f02003b;
+        public static final int main_bg=0x7f02003c;
+        public static final int op=0x7f02003d;
     }
     public static final class id {
+        public static final int EditText01=0x7f0a0058;
         public static final int access=0x7f0a000c;
         public static final int add=0x7f0a0048;
         public static final int add_diary_layout=0x7f0a000d;
         public static final int add_pass_way_layout=0x7f0a0015;
         public static final int advice_info=0x7f0a001c;
         public static final int advice_layout=0x7f0a0019;
-        public static final int animLayout=0x7f0a0059;
+        public static final int animLayout=0x7f0a0063;
         public static final int back_add_diary=0x7f0a000e;
         public static final int back_advice=0x7f0a001a;
         public static final int back_detail_diary=0x7f0a003d;
         public static final int back_look_diary=0x7f0a0042;
         public static final int back_pass_diary=0x7f0a0016;
-        public static final int back_search_diary=0x7f0a0056;
+        public static final int back_search_diary=0x7f0a0060;
         public static final int bottom=0x7f0a0006;
         public static final int box_count=0x7f0a0003;
         public static final int button=0x7f0a0004;
+        public static final int button1=0x7f0a005b;
+        public static final int cb1=0x7f0a005e;
+        public static final int cb2=0x7f0a0068;
         public static final int center=0x7f0a0009;
         public static final int check_pass_layout=0x7f0a001e;
         public static final int com_facebook_body_frame=0x7f0a0034;
@@ -387,6 +398,7 @@ containing a value of this type.
         public static final int diary_search=0x7f0a004d;
         public static final int diary_view_layout=0x7f0a0047;
         public static final int digitalpass=0x7f0a0017;
+        public static final int editText2=0x7f0a0059;
         public static final int edit_diary_info=0x7f0a0014;
         public static final int edit_title=0x7f0a0013;
         public static final int exit=0x7f0a0050;
@@ -395,28 +407,38 @@ containing a value of this type.
         public static final int lable1=0x7f0a0020;
         public static final int large=0x7f0a0000;
         public static final int left=0x7f0a000a;
-        public static final int leftLayout=0x7f0a005a;
+        public static final int leftLayout=0x7f0a0064;
+        public static final int linearLayout1=0x7f0a005c;
+        public static final int linearLayout2=0x7f0a0057;
+        public static final int linearLayout3=0x7f0a0056;
+        public static final int linearLayout4=0x7f0a005a;
         public static final int lock_check=0x7f0a001f;
         public static final int login_button=0x7f0a0053;
+        public static final int login_password=0x7f0a0067;
+        public static final int login_username=0x7f0a0066;
         public static final int look=0x7f0a004a;
+        public static final int myhead=0x7f0a0055;
         public static final int nopass=0x7f0a0018;
         public static final int normal=0x7f0a0001;
         public static final int password=0x7f0a004e;
         public static final int picker_subtitle=0x7f0a0031;
         public static final int right=0x7f0a000b;
-        public static final int rightLayout=0x7f0a005b;
+        public static final int rightLayout=0x7f0a0065;
         public static final int search=0x7f0a004c;
-        public static final int search_diary_info_list=0x7f0a0058;
-        public static final int search_diary_layout=0x7f0a0055;
-        public static final int search_edit=0x7f0a0057;
+        public static final int search_diary_info_list=0x7f0a0062;
+        public static final int search_diary_layout=0x7f0a005f;
+        public static final int search_edit=0x7f0a0061;
         public static final int set_pass=0x7f0a0021;
         public static final int small=0x7f0a0002;
         public static final int standard=0x7f0a0005;
         public static final int submit=0x7f0a001d;
+        public static final int textView1=0x7f0a005d;
         public static final int time=0x7f0a000f;
         public static final int title=0x7f0a0012;
         public static final int top=0x7f0a0008;
+        public static final int user_login_button=0x7f0a0069;
         public static final int user_name=0x7f0a001b;
+        public static final int user_register_button=0x7f0a006a;
         public static final int view_date=0x7f0a0046;
         public static final int view_info=0x7f0a0045;
         public static final int view_title=0x7f0a0044;
@@ -450,8 +472,10 @@ containing a value of this type.
         public static final int diary_info_view=0x7f030017;
         public static final int diary_view=0x7f030018;
         public static final int digital_pass=0x7f030019;
-        public static final int search_diary_info=0x7f03001a;
-        public static final int splash=0x7f03001b;
+        public static final int login=0x7f03001a;
+        public static final int search_diary_info=0x7f03001b;
+        public static final int splash=0x7f03001c;
+        public static final int user_login=0x7f03001d;
     }
     public static final class string {
         public static final int about=0x7f070051;

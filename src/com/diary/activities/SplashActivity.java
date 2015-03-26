@@ -19,6 +19,7 @@ import android.view.animation.Animation.AnimationListener;
 import android.widget.LinearLayout;
 import app.diary.R;
 
+
 public class SplashActivity extends Activity {
 	private LinearLayout leftLayout;
 	private LinearLayout rightLayout;
@@ -39,7 +40,7 @@ public class SplashActivity extends Activity {
 		leftLayout = (LinearLayout) this.findViewById(R.id.leftLayout);
 		rightLayout = (LinearLayout) this.findViewById(R.id.rightLayout);
 
-		animLayout.setBackgroundResource(R.drawable.main_bg);
+		animLayout.setBackgroundResource(R.drawable.diary_view_bg);
 		Animation leftOutAnimation = AnimationUtils.loadAnimation(
 				getApplicationContext(), R.anim.translate_left);
 		Animation rightOutAnimation = AnimationUtils.loadAnimation(
@@ -71,7 +72,7 @@ public class SplashActivity extends Activity {
 				leftLayout.setVisibility(View.GONE);
 				rightLayout.setVisibility(View.GONE);
 				Intent intent = new Intent();
-				intent.setClass(SplashActivity.this, AccessActivity.class);
+				intent.setClass(SplashActivity.this, LoginActivity.class);
 				startActivity(intent);
 				overridePendingTransition(0, 0);
 				SplashActivity.this.finish();
