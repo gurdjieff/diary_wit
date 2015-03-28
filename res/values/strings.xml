@@ -89,27 +89,5 @@
     <string name="no_place_selected">&lt;No place selected&gt;</string>
     <string name="pick_seattle_place">Pick a Seattle Place</string>
     <string name="exception">Exception: %1$s</string>
-    
-    <string name="activity_login3">登录</string>
-    <string name="hint_login1">请输入手机号</string>
-    <string name="hint_login2">请输入密码</string>
-    <string name="regist">注册账户</string>
-    <string name="find_passw">忘记密码</string>
-    <string name="mark">|</string>
-    <string name="title_activity_login">登录界面</string>
-    <string name="title_activity_other">OtherActivity</string>
-    <string name="title_activity_register">注册</string>
-    <string name="school">学            校</string>
-    <string name="userid">学            号</string>
-    <string name="userphone">手    机    号</string>
-    <string name="phonecode">短信验证码</string>
-    <string name="email">邮             箱</string>
-    <string name="repassword">确  认 密  码</string>
-    <string name="gender">性别</string>
-    <string name="genderm">男</string>
-    <string name="genderw">女</string>
-    <string name="logo">校   园   通</string>
-    
-    
-	
+ 
 </resources>
