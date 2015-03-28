@@ -1,0 +1,193 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+     >
+
+    <!-- 1 -->
+
+    <TextView
+        android:id="@+id/regmark"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/rblue"
+        android:gravity="center_horizontal"
+        android:text="@string/title_activity_register"
+        android:textSize="40sp" />
+    <!-- 2 -->
+
+    <Spinner
+        android:id="@+id/registcnt1"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/regmark"
+        android:background="#00000000" />
+
+    <View
+        android:id="@+id/registcnt2"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt1"
+        android:layout_marginTop="-2dp"
+        android:background="#000000" >
+    </View>
+    <!-- 3 -->
+
+    <EditText
+        android:id="@+id/registcnt3"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt2"
+        android:background="#00000000"
+        android:hint="@string/userid" />
+
+    <View
+        android:id="@+id/registcnt4"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt3"
+        android:background="#000000" >
+    </View>
+    <!-- 4 -->
+
+    <EditText
+        android:id="@+id/registcnt5"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt4"
+        android:background="#00000000"
+        android:hint="@string/userphone" />
+
+    <View
+        android:id="@+id/registcnt6"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt5"
+        android:background="#000000" >
+    </View>
+    <!-- 5 -->
+
+    <EditText
+        android:id="@+id/registcnt7"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt6"
+        android:background="#00000000"
+        android:hint="@string/phonecode" />
+
+    <Button
+        android:id="@+id/registbut1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/registcnt6"
+        android:layout_marginLeft="200dp"
+        android:background="@color/yellow"
+        android:text="@string/phonecode" />
+
+    <View
+        android:id="@+id/registcnt8"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt7"
+        android:background="#000000" >
+    </View>
+    <!-- 6 -->
+
+    <EditText
+        android:id="@+id/registcnt9"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt8"
+        android:background="#00000000"
+        android:hint="@string/email" />
+
+    <View
+        android:id="@+id/registcnt10"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt9"
+        android:background="#000000" >
+    </View>
+    <!-- 7 -->
+
+    <EditText
+        android:id="@+id/registcnt11"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt10"
+        android:background="#00000000"
+        android:hint="@string/password" />
+
+    <View
+        android:id="@+id/registcnt12"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt11"
+        android:background="#000000" >
+    </View>
+    <!-- 8 -->
+
+    <EditText
+        android:id="@+id/registcnt13"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/registcnt12"
+        android:background="#00000000"
+        android:hint="@string/repassword" />
+
+    <View
+        android:id="@+id/registcnt14"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/registcnt13"
+        android:background="#000000" >
+    </View>
+    <!-- 9 -->
+
+    <TextView
+        android:id="@+id/registcnt15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/registcnt14"
+        android:layout_marginTop="10dp"
+        android:text="@string/gender"
+        android:textSize="20sp" />
+
+    <RadioGroup
+        android:id="@+id/regradioGroup1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/registcnt15"
+        android:layout_alignTop="@+id/registcnt15"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:text="@string/genderm" 
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/radio0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genderw" />
+    </RadioGroup>
+    
+    <Button
+        android:id="@+id/registbut"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@color/yellow"
+        android:onClick="longin"
+        android:text="@string/submit"
+        android:textSize="30sp" />
+
+    
+</RelativeLayout>

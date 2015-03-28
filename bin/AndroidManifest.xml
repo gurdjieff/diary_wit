@@ -88,6 +88,11 @@
             android:screenOrientation="portrait" >
         </activity>
         
+          <activity
+            android:name="com.diary.activities.RegisterActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        
         <activity
             android:name="com.diary.activities.AdviceActivity"
             android:launchMode="singleTop"
