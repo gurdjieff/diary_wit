@@ -80,7 +80,6 @@ public class MainActivity extends Activity {
                 	facebookUser.put("userName", user.getName());
                 	facebookUser.saveInBackground();
 				}
-            	
             }
         });
 	}
@@ -152,8 +151,9 @@ public class MainActivity extends Activity {
 				break;
 			case R.id.diary_pass:
 				intent = new Intent(MainActivity.this,
-						SetPasswordActivity.class);
+						LoginActivity.class);
 				startActivity(intent);
+				finish();
 				break;
 			case R.id.diary_exit:
 				exitDialog();

@@ -44,11 +44,14 @@ public class LoginActivity extends Activity {
 				intent = new Intent(LoginActivity.this,
 						MainActivity.class);
 				startActivity(intent);
+				finish();
 				break;
 			case R.id.button2:
 				intent = new Intent(LoginActivity.this,
 						RegisterActivity.class);
 				startActivity(intent);
+				finish();
+
 				break;
 			default:
 				break;

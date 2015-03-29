@@ -304,7 +304,6 @@ public class LookDiaryActivity extends Activity {
 				this.dialog = new ProgressDialog(context, 1);	
 				this.dialog.setMessage("submit to Dropbox...");
 				this.dialog.show();
-				
 			}
 
 			@Override

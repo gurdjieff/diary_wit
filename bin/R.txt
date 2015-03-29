@@ -108,7 +108,7 @@ int drawable com_facebook_list_divider 0x7f020017
 int drawable com_facebook_list_section_header_background 0x7f020018
 int drawable com_facebook_loginbutton_silver 0x7f020019
 int drawable com_facebook_logo 0x7f02001a
-int drawable com_facebook_picker_default_separator_color 0x7f02003e
+int drawable com_facebook_picker_default_separator_color 0x7f02003f
 int drawable com_facebook_picker_item_background 0x7f02001b
 int drawable com_facebook_picker_list_focused 0x7f02001c
 int drawable com_facebook_picker_list_longpressed 0x7f02001d
@@ -142,8 +142,9 @@ int drawable diary_view_bg 0x7f020038
 int drawable head_blue_background 0x7f020039
 int drawable ic_launcher 0x7f02003a
 int drawable login 0x7f02003b
-int drawable main_bg 0x7f02003c
-int drawable op 0x7f02003d
+int drawable logout 0x7f02003c
+int drawable main_bg 0x7f02003d
+int drawable op 0x7f02003e
 int id EditText01 0x7f0a0057
 int id EditText03 0x7f0a005d
 int id access 0x7f0a000c
