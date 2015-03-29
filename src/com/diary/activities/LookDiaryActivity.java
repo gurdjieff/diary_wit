@@ -22,12 +22,18 @@ import com.dropbox.client2.session.AppKeyPair;
 
 
 
+
+
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -272,9 +278,7 @@ public class LookDiaryActivity extends Activity {
 	         }
 		
 	    if (mLoggedIn) {
-		    new Thread(networkTask).start(); 
-	        Toast toast = Toast.makeText(this, "save successsful", Toast.LENGTH_SHORT);
-	        toast.show();
+		    new DropboxSubmit(this).execute(); 
 		} else {
             if (USE_OAUTH1) {
                 mApi.getSession().startAuthentication(LookDiaryActivity.this);
@@ -284,56 +288,97 @@ public class LookDiaryActivity extends Activity {
         }
 	}
 	
-	
-	
-	Runnable networkTask = new Runnable() {  
-	    public void run() { 
-	    	String fileName = diaries.get(
-					listPostion)
-					.getDiaryTitle();
-			String info = diaries.get(
-					listPostion)
-					.getDiaryTitle()
-					+ "\n"
-					+ diaries.get(listPostion)
-							.getDate()
-					+ "  "
-					+ diaries.get(listPostion)
-							.getWeek()
-					+ " "
-					+ diaries.get(listPostion)
-							.getWeather()
-					+ "\n"
-					+ diaries.get(listPostion)
-							.getDiaryInfo();
-	    	String fileContents = info;
-	    	System.out.println(fileName);
-			ByteArrayInputStream inputStream = new ByteArrayInputStream(fileContents.getBytes());
-			try {
-				
-			    Entry newEntry = mApi.putFile("/diaries/" + fileName +".txt", inputStream,
-			    		fileContents.length(), null, new ProgressListener(){
-						@Override
-						public void onProgress(long total, long part) {
-							if(total == part){
-							}
-						}
-			    });
-			    Log.i("DbExampleLog", "The uploaded file's rev is: " + newEntry.rev);
-			} catch (DropboxUnlinkedException e) {
-			    Log.e("DbExampleLog", "User has unlinked.");
-			} catch (DropboxException e) {
-			    Log.e("DbExampleLog", "Something went wrong while uploading.");
-			} finally {
-			    if (inputStream != null) {
-			        try {
-			            inputStream.close();
-			        } catch (IOException e) {
-			        }
-			    }
+	 private class DropboxSubmit extends AsyncTask<Object, Void, String> {
+
+			protected ProgressDialog 		dialog;
+			protected Context 				context;
+
+			public DropboxSubmit(Context context)
+			{
+				this.context = context;
 			}
-	}
-};  
+			
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();	
+				this.dialog = new ProgressDialog(context, 1);	
+				this.dialog.setMessage("submit to Dropbox...");
+				this.dialog.show();
+				
+			}
+
+			@Override
+			protected String doInBackground(Object... params) {
+				
+                Log.v("gurdjieff", ""+params[0]);
+
+				String res = null;
+				try {
+					String fileName = diaries.get(
+							listPostion)
+							.getDiaryTitle();
+					String info = diaries.get(
+							listPostion)
+							.getDiaryTitle()
+							+ "\n"
+							+ diaries.get(listPostion)
+									.getDate()
+							+ "  "
+							+ diaries.get(listPostion)
+									.getWeek()
+							+ " "
+							+ diaries.get(listPostion)
+									.getWeather()
+							+ "\n"
+							+ diaries.get(listPostion)
+									.getDiaryInfo();
+			    	String fileContents = info;
+			    	System.out.println(fileName);
+					ByteArrayInputStream inputStream = new ByteArrayInputStream(fileContents.getBytes());
+					try {
+						
+					    Entry newEntry = mApi.putFile("/diaries/" + fileName +".txt", inputStream,
+					    		fileContents.length(), null, new ProgressListener(){
+								@Override
+								public void onProgress(long total, long part) {
+									if(total == part){
+									}
+								}
+					    });
+					    Log.i("DbExampleLog", "The uploaded file's rev is: " + newEntry.rev);
+					} catch (DropboxUnlinkedException e) {
+					    Log.e("DbExampleLog", "User has unlinked.");
+					} catch (DropboxException e) {
+					    Log.e("DbExampleLog", "Something went wrong while uploading.");
+					} finally {
+					    if (inputStream != null) {
+					        try {
+					            inputStream.close();
+					        } catch (IOException e) {
+					        }
+					    }
+					}
+
+				}
+			  	catch(Exception e)
+			      {
+			    	e.printStackTrace();
+			      }
+				return res;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+				super.onPostExecute(result);
+				
+				
+				if (dialog.isShowing()) {
+					dialog.dismiss();
+				}
+				Toast toast = Toast.makeText(LookDiaryActivity.this, "save successsful", Toast.LENGTH_SHORT);
+			     toast.show();
+			}
+		}
 	
 	
     private void setLoggedIn(boolean loggedIn) {

@@ -16,6 +16,8 @@ import android.widget.Toast;
 import app.diary.R;
 
 public class LoginActivity extends Activity {
+	private Button loginBtn = null;
+
 	private Button registerBtn = null;
 
 	@Override
@@ -23,18 +25,28 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
+		loginBtn = (Button) this.findViewById(R.id.button1);
 		registerBtn = (Button) this.findViewById(R.id.button2);
+		
+		loginBtn.setOnClickListener(new MyListener());
 		registerBtn.setOnClickListener(new MyListener());
 
 
 	}
 	
 	class MyListener implements OnClickListener {
+		Intent intent = null;
+
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
+			case R.id.button1:
+				intent = new Intent(LoginActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+				break;
 			case R.id.button2:
-				Intent intent = new Intent(LoginActivity.this,
+				intent = new Intent(LoginActivity.this,
 						RegisterActivity.class);
 				startActivity(intent);
 				break;

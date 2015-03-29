@@ -4,9 +4,6 @@
 package com.diary.db;
 
 import java.util.List;
-
-
-
 import com.diary.models.Diary;
 
 import android.content.ContentValues;
