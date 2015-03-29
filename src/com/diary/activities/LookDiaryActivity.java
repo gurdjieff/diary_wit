@@ -194,7 +194,7 @@ public class LookDiaryActivity extends Activity {
 					LookDiaryActivity.this);
 			builder.setTitle(getString(R.string.op));
 			builder.setItems(new String[] {getString(R.string.delete),
-					getString(R.string.backups), getString(R.string.empty) },
+					getString(R.string.backups) },
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(final DialogInterface dialog,

@@ -44,7 +44,7 @@
         android:layout_below="@+id/linearLayout2" >
 
         <EditText
-            android:id="@+id/EditText01"
+            android:id="@+id/editText01"
             android:layout_width="258dp"
             android:layout_height="45dp"
             android:background="@android:drawable/editbox_background"
@@ -62,7 +62,7 @@
         android:layout_below="@+id/linearLayout3" >
 
         <EditText
-            android:id="@+id/EditText03"
+            android:id="@+id/editText03"
             android:layout_width="258dp"
             android:layout_height="45dp"
             android:background="@android:drawable/editbox_background"
@@ -75,11 +75,11 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="160dp"
         android:layout_centerHorizontal="true" >
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editText02"
             android:layout_width="260dp"
             android:layout_height="45dp"
             android:background="@android:drawable/editbox_background"
@@ -98,7 +98,7 @@
         android:layout_alignLeft="@+id/linearLayout3"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/linearLayout3"
-        android:layout_marginBottom="179dp"
+        android:layout_marginBottom="219dp"
         android:background="#5a76b1"
         android:onClick="login"
         android:textColor="#FFFFFF"

@@ -9,7 +9,10 @@ package com.diary.activities;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +27,8 @@ public class SplashActivity extends Activity {
 	private LinearLayout leftLayout;
 	private LinearLayout rightLayout;
 	private LinearLayout animLayout;
+	private SharedPreferences preferences;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -71,10 +76,22 @@ public class SplashActivity extends Activity {
 			public void onAnimationEnd(Animation animation) {
 				leftLayout.setVisibility(View.GONE);
 				rightLayout.setVisibility(View.GONE);
-				Intent intent = new Intent();
-				intent.setClass(SplashActivity.this, LoginActivity.class);
-				startActivity(intent);
-				overridePendingTransition(0, 0);
+				
+				preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
+				String loginState=preferences.getString("state", null);
+
+				if (loginState == null) {
+					Intent intent = new Intent();
+					intent.setClass(SplashActivity.this, LoginActivity.class);
+					startActivity(intent);
+					overridePendingTransition(0, 0);
+				} else {
+					Intent intent = new Intent();
+					intent.setClass(SplashActivity.this, MainActivity.class);
+					startActivity(intent);
+					overridePendingTransition(0, 0);
+				}
+				
 				SplashActivity.this.finish();
 			}
 		});
