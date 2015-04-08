@@ -24,7 +24,7 @@ public class Rest {
 	private static DefaultHttpClient 	httpClient;
 
 	private static final String URL = "http://www.jumpyjosh.com/ds/rest/api";
-	private static final String LocalhostURL = "http://172.20.10.5:8080/DiaryS/rest/api";
+	private static final String LocalhostURL = "http://192.168.43.51:8080/DiaryS/rest/api";
 
 	public static void setup() {
 		Rest.server = LocalhostURL;
@@ -44,6 +44,27 @@ public class Rest {
 		String result = "";
 		try {
 			HttpGet getRequest = new HttpGet(getBase() + url);
+			getRequest.setHeader("accept", "application/json");
+			//getRequest.setHeader("accept","text/plain");
+			HttpResponse response = httpClient.execute(getRequest);
+			result = getResult(response).toString();
+		} catch (Exception e) {
+			Log.v("Donate","ASYNC ERROR" + e.getMessage());
+		}
+		Log.v("Donate","ASYNC ERROR" + result);
+
+		return result;
+	}
+	
+	
+	public static String getAll(String name) {
+		String result = "";
+//		Log.v("namenamename",name);
+
+		try {
+			HttpGet getRequest = new HttpGet(getBase() + "/getallDiary/"+name);
+			Log.v("namenamename",getBase() + "/getallDiary/"+name);
+
 			getRequest.setHeader("accept", "application/json");
 			//getRequest.setHeader("accept","text/plain");
 			HttpResponse response = httpClient.execute(getRequest);
@@ -102,10 +123,11 @@ public class Rest {
 	}
 	
 	
-//	public static String get(String url) {
+	public static String login(String json) {
+		
 //		String result = "";
 //		try {
-//			HttpGet getRequest = new HttpGet(getBase() + url);
+//			HttpGet getRequest = new HttpGet(getBase() + "/getall");
 //			getRequest.setHeader("accept", "application/json");
 //			//getRequest.setHeader("accept","text/plain");
 //			HttpResponse response = httpClient.execute(getRequest);
@@ -114,40 +136,16 @@ public class Rest {
 //			Log.v("Donate","ASYNC ERROR" + e.getMessage());
 //		}
 //		Log.v("Donate","ASYNC ERROR" + result);
-//
-//		return result;
-//	}
-	
-	
-	public static String login3(String json) {
-//		public static String get(String url) {
-			String result = "";
-//			Log.v("Donate","777" + url);
-			String url = "/getall";
-			Log.v("Donate","777" + getBase());
 
-			try {
-				HttpGet getRequest = new HttpGet(getBase() + url);
-				getRequest.setHeader("accept", "application/json");
-				//getRequest.setHeader("accept","text/plain");
-				HttpResponse response = httpClient.execute(getRequest);
-				result = getResult(response).toString();
-			} catch (Exception e) {
-				Log.v("Donate","ASYNC ERROR" + e.getMessage());
-			}
-//			Log.v("Donate","ASYNC ERROR" + result);
-			Log.v("Donate","YYY" + result);
+		
+		
+	   	Log.v("3333", json);
 
-			return result;
-		}
-//	}
-	
-	public static String login(String json) {
+		
 		String result = "";
 		String url = "/login";
 
 		try {
-//			String url = "/login";
 			String strRequest = getBase() + url;
 			HttpPost postRequest = new HttpPost(strRequest);
 			postRequest.setHeader("Content-type", "application/json");
@@ -163,19 +161,21 @@ public class Rest {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-//	   	Log.v("resultresultresultresultresult", result);
+	   	Log.v("resultresultresultresult", result);
 
 		return result;
 
 	}
 	
 	public static String register(String json) {
-	   	Log.v("gurdjieff33", json);
+	   	Log.v("444", json);
 
-		String result = "";
+	   	String result = "";
+		String url = "/register";
 		try {
-			String url = "";
 			String strRequest = getBase() + url;
+		   	Log.v("resultresultresultresult", strRequest);
+
 			HttpPost postRequest = new HttpPost(strRequest);
 			postRequest.setHeader("Content-type", "application/json");
 			postRequest.setHeader("accept", "application/json");
@@ -186,12 +186,45 @@ public class Rest {
 			postRequest.setEntity(s);
 			HttpResponse response = httpClient.execute(postRequest);
 			result = getResult(response).toString();
+		   	Log.v("resultresultresultresult", result);
+
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+	   	Log.v("resultresultresultresult", result);
 		return result;
 	}
+	
+	public static String addDiary(String json) {
+	   	Log.v("444", json);
+
+	   	String result = "";
+		String url = "/newdiary";
+		try {
+			String strRequest = getBase() + url;
+		   	Log.v("resultresultresultresult", strRequest);
+
+			HttpPost postRequest = new HttpPost(strRequest);
+			postRequest.setHeader("Content-type", "application/json");
+			postRequest.setHeader("accept", "application/json");
+			postRequest.setHeader("accept","text/plain");
+			StringEntity s = new StringEntity(json);
+			s.setContentEncoding("UTF-8");
+			s.setContentType("application/json");
+			postRequest.setEntity(s);
+			HttpResponse response = httpClient.execute(postRequest);
+			result = getResult(response).toString();
+		   	Log.v("resultresultresultresult", result);
+
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	   	Log.v("resultresultresultresult", result);
+		return result;
+	}
+	
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////
 	public static String post(String url, String json) {
@@ -229,6 +262,6 @@ public class Rest {
 	}
 
 	public static void shutDown() {
-		httpClient.getConnectionManager().shutdown();
+//		httpClient.getConnectionManager().shutdown();
 	}
 }

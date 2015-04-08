@@ -6,18 +6,21 @@ import java.util.List;
 
 
 
+
 import android.util.Log;
 
 import com.diary.models.Diary;
+import com.diary.models.MyDiary;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class DiaryApi {
 	//////////////////////////////////////////////////////////////////////////////////	
-	public static List<Diary> getAll(String call) {
-		String json = Rest.get(call);
-		Type collectionType = new TypeToken<List<Diary>>() {}.getType();
-		
+	public static List<MyDiary> getAll(String name) {
+		String json = Rest.getAll(name);
+		Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+	   	Log.v("jsonjson", json);
+
 		return new Gson().fromJson(json, collectionType);
 	}
 	//////////////////////////////////////////////////////////////////////////////////
@@ -37,14 +40,14 @@ public class DiaryApi {
     
     public static String register(String info) {
         String json = Rest.register(info);
-//    	Log.v("gurdjieff", info);
-
-//        Type objType = new TypeToken<Diary>(){}.getType();
-
-//        return new Gson().fromJson(json, objType);
-        return "222";
+        return json;
      }
 	
+    public static String addDiary(String info) {
+        String json = Rest.addDiary(info);
+        return json;
+     }
+    
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////	

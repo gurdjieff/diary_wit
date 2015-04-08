@@ -93,13 +93,13 @@ public class SearchDiaryActivity extends Activity {
 	}
 	
 	private void refresh(){
-		manager.dimSearch(search,diaries);
-		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
-		searchInfo.setAdapter(adapter);
-		searchInfo.setVerticalScrollBarEnabled(true);
-		searchInfo.setOnItemClickListener(new ItemClickListener());
-		searchInfo.setOnItemLongClickListener(new ItemLongPressListener());
-		searchInfo.setSelection(0);
+//		manager.dimSearch(search,diaries);
+//		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
+//		searchInfo.setAdapter(adapter);
+//		searchInfo.setVerticalScrollBarEnabled(true);
+//		searchInfo.setOnItemClickListener(new ItemClickListener());
+//		searchInfo.setOnItemLongClickListener(new ItemLongPressListener());
+//		searchInfo.setSelection(0);
 	}
 	
 	class ItemClickListener implements OnItemClickListener {

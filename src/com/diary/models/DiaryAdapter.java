@@ -15,8 +15,8 @@ import app.diary.R;
 public class DiaryAdapter extends BaseAdapter{
 	private Activity activity;
 	private LayoutInflater inflater;
-	private List<Diary> diaries;
-	public DiaryAdapter(Activity activity, List<Diary> diaries) {
+	private List<MyDiary> diaries;
+	public DiaryAdapter(Activity activity, List<MyDiary> diaries) {
 		super();
 		this.activity = activity;
 		this.diaries = diaries;
@@ -53,7 +53,7 @@ public class DiaryAdapter extends BaseAdapter{
 		}
 		holder.diaryTitle.setText(activity.getString(R.string.title)+":"+diaries.get(position).getDiaryTitle());
 		holder.diaryInfo.setText(diaries.get(position).getDiaryInfo());
-		holder.date.setText(diaries.get(position).getDate());
+//		holder.date.setText(diaries.get(position).getDate());
 		return convertView;
 	}
 	class ViewHolder{

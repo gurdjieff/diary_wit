@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import com.diary.db.DBManager;
 import com.diary.models.Diary;
 import com.diary.models.DiaryAdapter;
+import com.diary.models.MyDiary;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.DropboxAPI.Entry;
 import com.dropbox.client2.ProgressListener;
@@ -17,6 +20,10 @@ import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.exception.DropboxUnlinkedException;
 import com.dropbox.client2.session.AccessTokenPair;
 import com.dropbox.client2.session.AppKeyPair;
+
+
+
+
 
 
 
@@ -49,6 +56,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import app.api.DiaryApi;
+import app.api.Rest;
 //import app.activities.DonationAdapter;
 //import app.api.DonationApi;
 import app.diary.DiaryAppliction;
@@ -65,7 +73,7 @@ public class LookDiaryActivity extends Activity {
     private boolean mLoggedIn;
     private static final String TAG = "LookDiaryActivity";
     public int listPostion = 0;
-	public static List <Diary> diaries = new ArrayList<Diary>();
+	public static List <MyDiary> diaries = new ArrayList<MyDiary>();
 
 
 	
@@ -85,6 +93,7 @@ public class LookDiaryActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Rest.setup();
 		init();
 	}
 	
@@ -114,7 +123,7 @@ public class LookDiaryActivity extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.diary_info);
 		manager = new DBManager(this);
-		diaries = new ArrayList<Diary>();
+		diaries = new ArrayList<MyDiary>();
 		back = (ImageView) this.findViewById(R.id.back_look_diary);
 		diaryInfo = (ListView) this.findViewById(R.id.diary_info_list);
 		DiaryAppliction app = (DiaryAppliction)getApplication();
@@ -128,12 +137,15 @@ public class LookDiaryActivity extends Activity {
 				finish();
 			}
 		});
+		SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
+		String username=preferences.getString("username", null);
+		new GetAllTask(this).execute(username);
 	}
 	
 	
 	
 	
-	private class GetAllTask extends AsyncTask<String, Void, List<Diary>> {
+	private class GetAllTask extends AsyncTask<String, Void, List<MyDiary>> {
 
 		protected ProgressDialog 		dialog;
 		protected Context 				context;
@@ -147,15 +159,20 @@ public class LookDiaryActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();	
 			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("Retrieving Donations List");
+			this.dialog.setMessage("Retrieving Diary List");
 			this.dialog.show();
 		}
 
 		@Override
-		protected List<Diary> doInBackground(String... params) {
+		protected List<MyDiary> doInBackground(String... params) {
 
 			try {
-				return (List<Diary>) DiaryApi.getAll((String) params[0]);
+				JSONObject json = new JSONObject(); 
+            	json.put("id", 0);
+            	json.put("user_name", params[0]);
+
+//            	Log.v("gurdjieff1", json.toJSONString());
+   				return (List<MyDiary>) DiaryApi.getAll(params[0]);
 			}
 
 			catch (Exception e) {
@@ -166,13 +183,17 @@ public class LookDiaryActivity extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(List<Diary> result) {
+		protected void onPostExecute(List<MyDiary> result) {
 			super.onPostExecute(result);
 
 			diaries = result;
+//			MyDiary m = (MyDiary)diaries[0];
+//		   	Log.v("toStringtoStringtoString", diaries.get(0).getDiaryTitle());
+		   	Log.v("toStringtoStringtoString", "size"+diaries.size());
+
 //            Log.v("Error authenticating", ""+diaries.toString());
 
-//			DiaryAdapter adapter = new DiaryAdapter(context, donations);
+//			DiaryAdapter adapter = new DiaryAdapter(context, diaries);
 //			listView.setAdapter(adapter);
 			
 //			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
@@ -243,9 +264,9 @@ public class LookDiaryActivity extends Activity {
 					DetailDiaryInfoActivity.class);
 			intent.putExtra("title", diaries.get(position).getDiaryTitle());
 			intent.putExtra("info", diaries.get(position).getDiaryInfo());
-			intent.putExtra("date", diaries.get(position).getDate());
-			intent.putExtra("week", diaries.get(position).getWeek());
-			intent.putExtra("weather", diaries.get(position).getWeather());
+//			intent.putExtra("date", diaries.get(position).getDate());
+//			intent.putExtra("week", diaries.get(position).getWeek());
+//			intent.putExtra("weather", diaries.get(position).getWeather());
 			startActivity(intent);
 			overridePendingTransition(android.R.anim.fade_in,
 					android.R.anim.fade_out);
@@ -387,17 +408,7 @@ public class LookDiaryActivity extends Activity {
 					String info = diaries.get(
 							listPostion)
 							.getDiaryTitle()
-							+ "\n"
-							+ diaries.get(listPostion)
-									.getDate()
-							+ "  "
-							+ diaries.get(listPostion)
-									.getWeek()
-							+ " "
-							+ diaries.get(listPostion)
-									.getWeather()
-							+ "\n"
-							+ diaries.get(listPostion)
+							+ "\n" + diaries.get(listPostion)
 									.getDiaryInfo();
 			    	String fileContents = info;
 			    	System.out.println(fileName);

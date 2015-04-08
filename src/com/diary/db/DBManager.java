@@ -20,15 +20,15 @@ public class DBManager {
 		helper = new DataBaseHelper(context);
 	}
 	public void insert(Diary diary){
-		SQLiteDatabase db = helper.getWritableDatabase();
-		ContentValues values = new ContentValues();
-		values.put("date", diary.getDate());
-		values.put("week", diary.getWeek());
-		values.put("weather", diary.getWeather());
-		values.put("diarytitle", diary.getDiaryTitle());
-		values.put("diaryinfo", diary.getDiaryInfo());
-		db.insert("DIARY_INFO", null, values);
-		db.close();
+//		SQLiteDatabase db = helper.getWritableDatabase();
+//		ContentValues values = new ContentValues();
+//		values.put("date", diary.getDate());
+//		values.put("week", diary.getWeek());
+//		values.put("weather", diary.getWeather());
+//		values.put("diarytitle", diary.getDiaryTitle());
+//		values.put("diaryinfo", diary.getDiaryInfo());
+//		db.insert("DIARY_INFO", null, values);
+//		db.close();
 	}
 	
 	public void delete(int id) {
@@ -50,13 +50,13 @@ public class DBManager {
 			String week = cursor.getString(cursor.getColumnIndex("week"));
 			String weather = cursor.getString(cursor.getColumnIndex("weather"));
 			int id = cursor.getInt(cursor.getColumnIndex("id"));
-			diary.setDate(date);
-			diary.setWeek(week);
-			diary.setWeather(weather);
-			diary.setDiaryTitle(title);
-			diary.setDiaryInfo(info);
-			diary.setId(id);
-			diaries.add(diary);
+//			diary.setDate(date);
+//			diary.setWeek(week);
+//			diary.setWeather(weather);
+//			diary.setDiaryTitle(title);
+//			diary.setDiaryInfo(info);
+//			diary.setId(id);
+//			diaries.add(diary);
 		}
 		cursor.close();
 		db.close();
@@ -81,13 +81,13 @@ public class DBManager {
 			String diaryInfo=cursor.getString(cursor.getColumnIndex("diaryinfo"));
 			String diaryTitle=cursor.getString(cursor.getColumnIndex("diarytitle"));
 			int id = cursor.getInt(cursor.getColumnIndex("id"));
-			diary.setDate(date);
-			diary.setWeek(week);
-			diary.setWeather(weather);
-			diary.setDiaryInfo(diaryInfo);
-			diary.setDiaryTitle(diaryTitle);
-			diary.setId(id);
-			diaries.add(diary);
+//			diary.setDate(date);
+//			diary.setWeek(week);
+//			diary.setWeather(weather);
+//			diary.setDiaryInfo(diaryInfo);
+//			diary.setDiaryTitle(diaryTitle);
+//			diary.setId(id);
+//			diaries.add(diary);
 		}
 		cursor.close();
 		db.close();

@@ -205,6 +205,20 @@ public class LoginActivity extends Activity {
 			}
 			
 			if (result.equals("success")) {
+				
+				preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
+				Editor editor=preferences.edit();
+				if (checkbok.isChecked()) {
+					
+					editor.putString("state", "login");
+					editor.putString("username", username.getText().toString());
+	
+				} else {
+					editor.putString("state", null);
+				}
+				
+				editor.commit();
+				
 				Intent intent = new Intent(LoginActivity.this,
 						MainActivity.class);
 				startActivity(intent);
@@ -212,21 +226,6 @@ public class LoginActivity extends Activity {
 			} else {
 				Toast.makeText(LoginActivity.this, "username or password is wrong!", Toast.LENGTH_SHORT).show();
 			}
-			
-//			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
-//			Editor editor=preferences.edit();
-//			if (checkbok.isChecked()) {
-//				
-//				editor.putString("state", "login");
-//				editor.putString("username", username.getText().toString());
-//
-//			} else {
-//				editor.putString("state", null);
-//			}
-//			
-//			editor.commit();
-
-			
 		}
 	}
 

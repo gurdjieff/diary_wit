@@ -6,10 +6,8 @@
     android:background="@drawable/diary_view_bg"
     android:orientation="vertical" >
 
-    
-     
     <RelativeLayout
-       android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
         android:layout_height="48dip"
         android:background="@drawable/head_blue_background"
         android:clickable="true" >
@@ -24,6 +22,7 @@
             android:src="@drawable/back" />
 
         <TextView
+            android:id="@+id/textView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -32,6 +31,19 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="54dip"
+            android:layout_height="40dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"
+            android:text="ok"
+            android:textSize="14dp" />
+
     </RelativeLayout>
 
     <LinearLayout

@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import app.api.DiaryApi;
+import app.api.Rest;
 import app.diary.R;
 
 public class RegisterActivity extends Activity {
@@ -43,10 +44,17 @@ public class RegisterActivity extends Activity {
 
 
 
+	@Override
+    protected void onDestroy() {
+    	super.onDestroy();
+		Rest.shutDown();
 
+    };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Rest.setup();
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.register);
 		back = (ImageView) this.findViewById(R.id.back_look_diary);
@@ -80,6 +88,10 @@ public class RegisterActivity extends Activity {
 				} else if (!(password1.getText().toString().trim().equals(password2.getText().toString().trim()))) {
 					Toast.makeText(RegisterActivity.this, "two password is not same!", Toast.LENGTH_SHORT).show();
 				}  else {
+//					Log.v("username", username.getText().toString());
+//					Log.v("password1", password1.getText().toString());
+//
+
 				    new Register(RegisterActivity.this).execute(username.getText().toString().trim(), password1.getText().toString().trim()); 
 				}
 			}
@@ -102,7 +114,7 @@ public class RegisterActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();	
 			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("submit to Dropbox...");
+			this.dialog.setMessage("register...");
 			this.dialog.show();
 		}
 		
@@ -112,7 +124,7 @@ public class RegisterActivity extends Activity {
 		protected String doInBackground(Object... params) {
             try {
             	JSONObject json = new JSONObject();  
-            	json.put("name", params[0]);
+            	json.put("username", params[0]);
             	json.put("password", params[1]);
 //            	Log.v("gurdjieff1", json.toJSONString());
     
@@ -132,23 +144,24 @@ public class RegisterActivity extends Activity {
 				dialog.dismiss();
 			}
 			
+			if (result.equals("success")) {
+				SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
+				Editor editor=preferences.edit();
+				editor.putString("state", "login");
+				editor.putString("username", username.getText().toString());
+				editor.putString("state", null);
+				editor.commit();
+
+				Intent intent = new Intent(RegisterActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+				finish();
+			} else if (result.equals("failed")) {
+				Toast.makeText(RegisterActivity.this, "existent user, please chose another!", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(RegisterActivity.this, "try it later!", Toast.LENGTH_SHORT).show();
+			}
 			Log.v("gurdjieff", "finished");
-
-			
-			SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
-			Editor editor=preferences.edit();
-				
-			editor.putString("state", "login");
-			editor.putString("username", username.getText().toString());
-
-			editor.putString("state", null);
-			
-			editor.commit();
-
-//			Intent intent = new Intent(RegisterActivity.this,
-//					MainActivity.class);
-//			startActivity(intent);
-//			finish();
 		}
 	}
 }
