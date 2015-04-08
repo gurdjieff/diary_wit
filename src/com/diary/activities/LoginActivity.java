@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import com.facebook.AppEventsLogger;
 import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookOperationCanceledException;
@@ -38,6 +40,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+import app.api.DiaryApi;
+import app.api.Rest;
 import app.diary.R;
 
 public class LoginActivity extends Activity {
@@ -62,13 +66,22 @@ public class LoginActivity extends Activity {
     private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 
     }
+    
+	@Override
+    protected void onDestroy() {
+    	super.onDestroy();
+		Rest.shutDown();
+
+    };
+ 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		Rest.setup();
+
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.login);
-		username = (EditText)findViewById(R.id.EditText01);
+		username = (EditText)findViewById(R.id.editText1);
 		password = (EditText)findViewById(R.id.editText2);
 		loginBtn = (Button) this.findViewById(R.id.button1);
 		registerBtn = (Button) this.findViewById(R.id.button2);
@@ -85,7 +98,7 @@ public class LoginActivity extends Activity {
             public void onUserInfoFetched(GraphUser user) {
             	if (user != null && user.getName() != null) {
         			Toast.makeText(LoginActivity.this, "444", Toast.LENGTH_LONG).show();
-        			facebookUser = user.getName();
+        			facebookUser = user.getId();
 				}
             }
         });
@@ -105,14 +118,20 @@ public class LoginActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();	
 			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("submit to Dropbox...");
+			this.dialog.setMessage("login in...");
 			this.dialog.show();
 		}
 
 		@Override
 		protected String doInBackground(Object... params) {
-            try {
-            	return "";
+			try {
+
+            	JSONObject json = new JSONObject();  
+            	json.put("username", params[0]);
+            	json.put("password", params[1]);  
+            	Log.v("gurdjieff55", json.toJSONString());
+
+    			return (String) DiaryApi.login(json.toJSONString());
 			}
 			catch (Exception e) {
 				Log.v("Donate", "ERROR : " + e);
@@ -127,6 +146,7 @@ public class LoginActivity extends Activity {
 			if (dialog.isShowing()) {
 				dialog.dismiss();
 			}
+			
 			
 			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
 			Editor editor=preferences.edit();
@@ -155,15 +175,20 @@ public class LoginActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();	
 			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("submit to Dropbox...");
+			this.dialog.setMessage("login in...");
 			this.dialog.show();
 		}
 
 		@Override
 		protected String doInBackground(Object... params) {
-//            Log.v("gurdjieff", ""+params[0]);
-            try {
-            	return "";
+			try {
+            	JSONObject json = new JSONObject();  
+            	json.put("username", params[0]);
+            	json.put("password", params[1]);
+//            	Log.v("gurdjieff1", json.toJSONString());
+        	   	Log.v("gurdjieff55", json.toJSONString());
+
+    			return (String) DiaryApi.login(json.toJSONString());
 			}
 			catch (Exception e) {
 				Log.v("Donate", "ERROR : " + e);
@@ -179,23 +204,29 @@ public class LoginActivity extends Activity {
 				dialog.dismiss();
 			}
 			
-			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
-			Editor editor=preferences.edit();
-			if (checkbok.isChecked()) {
-				
-				editor.putString("state", "login");
-				editor.putString("username", username.getText().toString());
-
+			if (result.equals("success")) {
+				Intent intent = new Intent(LoginActivity.this,
+						MainActivity.class);
+				startActivity(intent);
+				finish();
 			} else {
-				editor.putString("state", null);
+				Toast.makeText(LoginActivity.this, "username or password is wrong!", Toast.LENGTH_SHORT).show();
 			}
 			
-			editor.commit();
+//			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
+//			Editor editor=preferences.edit();
+//			if (checkbok.isChecked()) {
+//				
+//				editor.putString("state", "login");
+//				editor.putString("username", username.getText().toString());
+//
+//			} else {
+//				editor.putString("state", null);
+//			}
+//			
+//			editor.commit();
 
-			Intent intent = new Intent(LoginActivity.this,
-					MainActivity.class);
-			startActivity(intent);
-			finish();
+			
 		}
 	}
 
@@ -237,9 +268,19 @@ public class LoginActivity extends Activity {
 		public void onClick(View v) {
 			switch (v.getId()) {
 			case R.id.button1:
-    		    new commonLogin(LoginActivity.this).execute(); 
+				if (username.getText().toString().length() == 0) {
+					Toast.makeText(LoginActivity.this, "please input username", Toast.LENGTH_SHORT).show();
+				} else if (password.getText().toString().length() == 0) {
+					Toast.makeText(LoginActivity.this, "please input password", Toast.LENGTH_SHORT).show();
+				} else {
+	    		    new commonLogin(LoginActivity.this).execute(username.getText().toString().trim(), password.getText().toString().trim()); 
+				}
 				break;
 			case R.id.button2:
+				
+				
+				
+				
 				intent = new Intent(LoginActivity.this,
 						RegisterActivity.class);
 				startActivity(intent);
@@ -249,20 +290,6 @@ public class LoginActivity extends Activity {
 			default:
 				break;
 			}
-		}
-	}
-	
-	
-	public void login(View v){
-		EditText edtphone = (EditText)findViewById(R.id.editText2);
-		EditText edtpwd = (EditText)findViewById(R.id.EditText01);
-		if(edtphone.getText().toString().equals("") && edtpwd.getText().toString().equals("")){
-			Toast.makeText(getBaseContext(), "444", Toast.LENGTH_LONG).show();
-		}else if(edtphone.getText().toString().equals("") || edtpwd.getText().toString().equals("")){
-			Toast.makeText(getApplicationContext(), "3333!", Toast.LENGTH_LONG).show();
-		}else {
-			Toast.makeText(getBaseContext(), "3333:"+edtphone.getText().toString()+
-					"\n3333:"+edtpwd.getText().toString(), Toast.LENGTH_LONG).show();
 		}
 	}
 }

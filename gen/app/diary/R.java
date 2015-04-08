@@ -338,20 +338,19 @@ containing a value of this type.
         public static final int op=0x7f02003e;
     }
     public static final class id {
-        public static final int EditText01=0x7f0a0056;
         public static final int access=0x7f0a000c;
         public static final int add=0x7f0a0048;
         public static final int add_diary_layout=0x7f0a000d;
         public static final int add_pass_way_layout=0x7f0a0015;
         public static final int advice_info=0x7f0a001c;
         public static final int advice_layout=0x7f0a0019;
-        public static final int animLayout=0x7f0a0064;
+        public static final int animLayout=0x7f0a0065;
         public static final int back_add_diary=0x7f0a000e;
         public static final int back_advice=0x7f0a001a;
         public static final int back_detail_diary=0x7f0a003d;
         public static final int back_look_diary=0x7f0a0042;
         public static final int back_pass_diary=0x7f0a0016;
-        public static final int back_search_diary=0x7f0a0061;
+        public static final int back_search_diary=0x7f0a0062;
         public static final int bottom=0x7f0a0006;
         public static final int box_count=0x7f0a0003;
         public static final int button=0x7f0a0004;
@@ -399,10 +398,11 @@ containing a value of this type.
         public static final int diary_search=0x7f0a004d;
         public static final int diary_view_layout=0x7f0a0047;
         public static final int digitalpass=0x7f0a0017;
-        public static final int editText01=0x7f0a005d;
-        public static final int editText02=0x7f0a005f;
+        public static final int editText01=0x7f0a005f;
+        public static final int editText02=0x7f0a005d;
         public static final int editText03=0x7f0a005e;
-        public static final int editText2=0x7f0a0057;
+        public static final int editText1=0x7f0a0057;
+        public static final int editText2=0x7f0a0056;
         public static final int edit_diary_info=0x7f0a0014;
         public static final int edit_title=0x7f0a0013;
         public static final int exit=0x7f0a0050;
@@ -411,7 +411,7 @@ containing a value of this type.
         public static final int lable1=0x7f0a0020;
         public static final int large=0x7f0a0000;
         public static final int left=0x7f0a000a;
-        public static final int leftLayout=0x7f0a0065;
+        public static final int leftLayout=0x7f0a0066;
         public static final int linearLayout2=0x7f0a0055;
         public static final int linearLayout3=0x7f0a0054;
         public static final int linearLayout4=0x7f0a0058;
@@ -422,12 +422,13 @@ containing a value of this type.
         public static final int normal=0x7f0a0001;
         public static final int password=0x7f0a004e;
         public static final int picker_subtitle=0x7f0a0031;
+        public static final int registerBtn=0x7f0a0060;
         public static final int right=0x7f0a000b;
-        public static final int rightLayout=0x7f0a0066;
+        public static final int rightLayout=0x7f0a0067;
         public static final int search=0x7f0a004c;
-        public static final int search_diary_info_list=0x7f0a0063;
-        public static final int search_diary_layout=0x7f0a0060;
-        public static final int search_edit=0x7f0a0062;
+        public static final int search_diary_info_list=0x7f0a0064;
+        public static final int search_diary_layout=0x7f0a0061;
+        public static final int search_edit=0x7f0a0063;
         public static final int set_pass=0x7f0a0021;
         public static final int small=0x7f0a0002;
         public static final int standard=0x7f0a0005;

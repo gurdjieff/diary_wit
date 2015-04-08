@@ -25,6 +25,9 @@ import com.dropbox.client2.session.AppKeyPair;
 
 
 
+
+
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -45,6 +48,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import app.api.DiaryApi;
+//import app.activities.DonationAdapter;
+//import app.api.DonationApi;
 import app.diary.DiaryAppliction;
 import app.diary.R;
 
@@ -55,10 +61,12 @@ public class LookDiaryActivity extends Activity {
 	private ImageView back = null;
 	private ListView diaryInfo = null;
 	private DBManager manager = null;
-	private List<Diary> diaries = null;
+//	private List<Diary> diaries = null;
     private boolean mLoggedIn;
     private static final String TAG = "LookDiaryActivity";
     public int listPostion = 0;
+	public static List <Diary> diaries = new ArrayList<Diary>();
+
 
 	
 	private static final String APP_KEY = "o5ibaq1ztssayeg";
@@ -112,7 +120,7 @@ public class LookDiaryActivity extends Activity {
 		DiaryAppliction app = (DiaryAppliction)getApplication();
 	    mApi = app.mDBApi;
 		refresh();
-		myDialog();
+//		myDialog();
 		back.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -122,14 +130,74 @@ public class LookDiaryActivity extends Activity {
 		});
 	}
 	
+	
+	
+	
+	private class GetAllTask extends AsyncTask<String, Void, List<Diary>> {
+
+		protected ProgressDialog 		dialog;
+		protected Context 				context;
+
+		public GetAllTask(Context context)
+		{
+			this.context = context;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();	
+			this.dialog = new ProgressDialog(context, 1);	
+			this.dialog.setMessage("Retrieving Donations List");
+			this.dialog.show();
+		}
+
+		@Override
+		protected List<Diary> doInBackground(String... params) {
+
+			try {
+				return (List<Diary>) DiaryApi.getAll((String) params[0]);
+			}
+
+			catch (Exception e) {
+				Log.v("ASYNC", "ERROR : " + e);
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(List<Diary> result) {
+			super.onPostExecute(result);
+
+			diaries = result;
+//            Log.v("Error authenticating", ""+diaries.toString());
+
+//			DiaryAdapter adapter = new DiaryAdapter(context, donations);
+//			listView.setAdapter(adapter);
+			
+//			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
+//			diaryInfo.setAdapter(adapter);
+//			diaryInfo.setVerticalScrollBarEnabled(true);
+//			diaryInfo.setOnItemClickListener(new ItemClickListener());
+//			diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
+//			diaryInfo.setSelection(0);
+
+			if (dialog.isShowing())
+				dialog.dismiss();
+		}
+	}
+	
+	
+	
 	private void refresh (){
-		manager.query(diaries);
-		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
-		diaryInfo.setAdapter(adapter);
-		diaryInfo.setVerticalScrollBarEnabled(true);
-		diaryInfo.setOnItemClickListener(new ItemClickListener());
-		diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
-		diaryInfo.setSelection(0);
+		new GetAllTask(this).execute("/getall");
+//		manager.query(diaries);
+//		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
+//		diaryInfo.setAdapter(adapter);
+//		diaryInfo.setVerticalScrollBarEnabled(true);
+//		diaryInfo.setOnItemClickListener(new ItemClickListener());
+//		diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
+//		diaryInfo.setSelection(0);
 	}
 
 	private void myDialog() {
