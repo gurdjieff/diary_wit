@@ -8,10 +8,17 @@ package com.diary.activities;
 //import com.facebook.model.GraphUser;
 //import com.facebook.widget.FacebookDialog;
 //import com.facebook.widget.LoginButton;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import com.diary.models.MyDiary;
 import com.facebook.Session;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 
+import app.api.Rest;
 import app.diary.R;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -86,6 +93,16 @@ public class MainActivity extends Activity {
 //				}
 //            }
 //        });
+		
+		
+		
+		String json = "[{\"user_name\":\"222\", \"Dairy_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"},{\"user_name\":\"222\", \"Dairy_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"}]";
+		Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+		List<MyDiary> diaries = new Gson().fromJson(json, collectionType);
+	   	Log.v("jsonjson", ""+diaries.size());
+	   	Log.v("jsonjson", ""+diaries.size());
+
+	   	
 	}
 
 	

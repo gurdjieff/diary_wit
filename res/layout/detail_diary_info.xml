@@ -51,7 +51,6 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
         android:gravity="right"
-        android:hint="@string/date"
         android:textSize="15dp" />
 
     <TextView

@@ -30,6 +30,18 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:textStyle="bold" />
+         <Button
+            android:id="@+id/submit"
+            android:layout_width="54dip"
+            android:layout_height="40dip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/back"
+            android:text="ok"
+            android:textSize="14dp" />
+        
     </RelativeLayout>
 
     <EditText

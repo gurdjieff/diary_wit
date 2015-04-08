@@ -2,6 +2,7 @@ package com.diary.activities;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,6 +35,9 @@ import com.dropbox.client2.session.AppKeyPair;
 
 
 
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -167,10 +171,7 @@ public class LookDiaryActivity extends Activity {
 		protected List<MyDiary> doInBackground(String... params) {
 
 			try {
-				JSONObject json = new JSONObject(); 
-            	json.put("id", 0);
-            	json.put("user_name", params[0]);
-
+				
 //            	Log.v("gurdjieff1", json.toJSONString());
    				return (List<MyDiary>) DiaryApi.getAll(params[0]);
 			}
@@ -189,19 +190,27 @@ public class LookDiaryActivity extends Activity {
 			diaries = result;
 //			MyDiary m = (MyDiary)diaries[0];
 //		   	Log.v("toStringtoStringtoString", diaries.get(0).getDiaryTitle());
-		   	Log.v("toStringtoStringtoString", "size"+diaries.size());
+//		   	Log.v("toStringtoStringtoString", "size"+diaries.size());
 
 //            Log.v("Error authenticating", ""+diaries.toString());
 
 //			DiaryAdapter adapter = new DiaryAdapter(context, diaries);
 //			listView.setAdapter(adapter);
+		   	
+		   	
+		   	String json = "[{\"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\", \"id\":\"222\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"}]";
+			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+			diaries = new Gson().fromJson(json, collectionType);
+		   	Log.v("jsonjson", ""+diaries.size());
+		   	
+		   	
 			
-//			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
-//			diaryInfo.setAdapter(adapter);
-//			diaryInfo.setVerticalScrollBarEnabled(true);
-//			diaryInfo.setOnItemClickListener(new ItemClickListener());
-//			diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
-//			diaryInfo.setSelection(0);
+			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
+			diaryInfo.setAdapter(adapter);
+			diaryInfo.setVerticalScrollBarEnabled(true);
+			diaryInfo.setOnItemClickListener(new ItemClickListener());
+			diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
+			diaryInfo.setSelection(0);
 
 			if (dialog.isShowing())
 				dialog.dismiss();
@@ -211,7 +220,7 @@ public class LookDiaryActivity extends Activity {
 	
 	
 	private void refresh (){
-		new GetAllTask(this).execute("/getall");
+//		new GetAllTask(this).execute("/getall");
 //		manager.query(diaries);
 //		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
 //		diaryInfo.setAdapter(adapter);

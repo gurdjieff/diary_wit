@@ -18,10 +18,15 @@ public class DiaryApi {
 	//////////////////////////////////////////////////////////////////////////////////	
 	public static List<MyDiary> getAll(String name) {
 		String json = Rest.getAll(name);
-		Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
-	   	Log.v("jsonjson", json);
+		if (json.length() > 10) {
+			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+		   	Log.v("jsonjson", json);
 
-		return new Gson().fromJson(json, collectionType);
+			return new Gson().fromJson(json, collectionType);
+		} else {
+			return null;
+		}
+		
 	}
 	//////////////////////////////////////////////////////////////////////////////////
 	public static Diary get(String call) {
