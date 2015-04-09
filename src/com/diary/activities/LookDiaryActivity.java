@@ -179,17 +179,6 @@ public class LookDiaryActivity extends Activity {
 			super.onPostExecute(result);
 
 			diaries = result;
-//			MyDiary m = (MyDiary)diaries[0];
-//		   	Log.v("toStringtoStringtoString", diaries.get(0).getDiaryTitle());
-//		   	Log.v("toStringtoStringtoString", "size"+diaries.size());
-//			[{"id":0,"user_name":"medaymen","Diary_title":"2","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"3","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"4","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"6","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"7","Diary_text":"11"}]
-		   	String json = "[{\"id\":0, \"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":0}]";
-			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
-			diaries = new Gson().fromJson(json, collectionType);
-		   	Log.v("jsonjson", ""+diaries.size());
-		   	
-		   	
-			
 			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
 			diaryInfo.setAdapter(adapter);
 			diaryInfo.setVerticalScrollBarEnabled(true);
@@ -201,7 +190,6 @@ public class LookDiaryActivity extends Activity {
 				dialog.dismiss();
 		}
 	}
-	
 	
 	
 	private void refresh (){
@@ -225,6 +213,55 @@ public class LookDiaryActivity extends Activity {
 					android.R.anim.fade_out);
 		}
 	}
+	
+	private class DeleteTask extends AsyncTask<String, Void, String> {
+
+		protected ProgressDialog 		dialog;
+		protected Context 				context;
+
+		public DeleteTask(Context context)
+		{
+			this.context = context;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();	
+			this.dialog = new ProgressDialog(context, 1);	
+			this.dialog.setMessage("Retrieving Diary List");
+			this.dialog.show();
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+
+			try {
+   				return DiaryApi.delete(params[0]);
+			}
+
+			catch (Exception e) {
+				Log.v("ASYNC", "ERROR : " + e);
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+
+
+
+			if (dialog.isShowing())
+				dialog.dismiss();
+			
+			
+			SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
+			String username=preferences.getString("username", null);
+			new GetAllTask(LookDiaryActivity.this).execute(username);
+			
+		}
+	}
 
 	class ItemLongPressListener implements OnItemLongClickListener {
 
@@ -244,32 +281,14 @@ public class LookDiaryActivity extends Activity {
 							// TODO Auto-generated method stub
 							if (which == 0) {
 								dialog.dismiss();
-								manager.delete(diaries.get(
-										position).getId());
-								System.out.println("id ->"
-										+ diaries.get(position)
-												.getId());
-								Toast.makeText(
-										LookDiaryActivity.this,
-										getString(R.string.delete_over),
-										Toast.LENGTH_SHORT)
-										.show();
-								refresh();
+								String diaryId = ""+diaries.get(
+										position).getId();
+								new DeleteTask(LookDiaryActivity.this).execute(diaryId);
 	
 							} else if (which == 1) {
 								dialog.dismiss();
 //								refresh();		
 								dropboxInit(position);
-							} else if (which == 2) {
-								dialog.dismiss();
-								manager.deleteAll();
-								Toast.makeText(
-										LookDiaryActivity.this,
-										getString(R.string.emptyed),
-										Toast.LENGTH_SHORT)
-										.show();
-								refresh();
-
 							}
 						}
 					});

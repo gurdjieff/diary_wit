@@ -31,7 +31,7 @@
             android:textSize="20sp"
             android:textStyle="bold" />
          <Button
-            android:id="@+id/submit"
+            android:id="@+id/searchBtn"
             android:layout_width="54dip"
             android:layout_height="40dip"
             android:layout_alignParentBottom="true"

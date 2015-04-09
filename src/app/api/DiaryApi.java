@@ -28,6 +28,20 @@ public class DiaryApi {
 		}
 		
 	}
+	
+	
+	public static List<MyDiary> searchDiaire(String info) {
+		String json = Rest.searchDiaries(info);
+		if (json.length() > 10) {
+			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+		   	Log.v("jsonjson", json);
+
+			return new Gson().fromJson(json, collectionType);
+		} else {
+			return null;
+		}
+		
+	}
 	//////////////////////////////////////////////////////////////////////////////////
 	public static Diary get(String call) {
 		String json = Rest.get(call);
@@ -56,8 +70,8 @@ public class DiaryApi {
 	
 	
 	//////////////////////////////////////////////////////////////////////////////////	
-	public static String delete(String call) {
-		return Rest.delete(call);
+	public static String delete(String id) {
+		return Rest.delete(id);
 	}
 	//////////////////////////////////////////////////////////////////////////////////
 	public static String insert(String call,Diary d) {		

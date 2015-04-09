@@ -151,7 +151,7 @@ int id add_diary_layout 0x7f0a000d
 int id add_pass_way_layout 0x7f0a0017
 int id advice_info 0x7f0a001e
 int id advice_layout 0x7f0a001b
-int id animLayout 0x7f0a0066
+int id animLayout 0x7f0a0067
 int id back_add_diary 0x7f0a000e
 int id back_advice 0x7f0a001c
 int id back_detail_diary 0x7f0a003e
@@ -218,7 +218,7 @@ int id inline 0x7f0a0007
 int id lable1 0x7f0a0021
 int id large 0x7f0a0000
 int id left 0x7f0a000a
-int id leftLayout 0x7f0a0067
+int id leftLayout 0x7f0a0068
 int id linearLayout2 0x7f0a0056
 int id linearLayout3 0x7f0a0055
 int id linearLayout4 0x7f0a0059
@@ -231,11 +231,12 @@ int id password 0x7f0a004f
 int id picker_subtitle 0x7f0a0032
 int id registerBtn 0x7f0a0061
 int id right 0x7f0a000b
-int id rightLayout 0x7f0a0068
+int id rightLayout 0x7f0a0069
 int id search 0x7f0a004d
-int id search_diary_info_list 0x7f0a0065
+int id searchBtn 0x7f0a0064
+int id search_diary_info_list 0x7f0a0066
 int id search_diary_layout 0x7f0a0062
-int id search_edit 0x7f0a0064
+int id search_edit 0x7f0a0065
 int id set_pass 0x7f0a0022
 int id small 0x7f0a0002
 int id standard 0x7f0a0005

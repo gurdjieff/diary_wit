@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ import app.api.DiaryApi;
 import app.api.Rest;
 import app.diary.R;
 
+import com.diary.activities.AddDiaryActivity.SubmitListener;
 import com.diary.db.DBManager;
 import com.diary.models.DiaryAdapter;
 import com.diary.models.MyDiary;
@@ -42,6 +44,7 @@ public class SearchDiaryActivity extends Activity {
 	private ListView searchInfo = null;
 	private DBManager manager = null;
 	public List <MyDiary> diaries = null;
+	private Button searchBtn = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,10 @@ public class SearchDiaryActivity extends Activity {
 		back = (ImageView)this.findViewById(R.id.back_search_diary);
 		searchInfo = (ListView)this.findViewById(R.id.search_diary_info_list);
 		search.addTextChangedListener(new SearchInfoListener());
+		
+		searchBtn = (Button)this.findViewById(R.id.searchBtn);
+		searchBtn.setOnClickListener(new SearchListener());
+		
 		back.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -73,17 +80,24 @@ public class SearchDiaryActivity extends Activity {
 			}
 		});
 		
-		SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
-		String username=preferences.getString("username", null);
-		new GetAllTask(this).execute(username);
+		
 	}
 	
-	private class GetAllTask extends AsyncTask<String, Void, List<MyDiary>> {
+	class SearchListener implements OnClickListener{
+		@Override
+		public void onClick(View v) {
+			SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
+			String username=preferences.getString("username", null);
+		    new SearchTask(SearchDiaryActivity.this).execute(username, search.getText().toString().trim()); 	
+		    }
+	}
+	
+	private class SearchTask extends AsyncTask<String, Void, List<MyDiary>> {
 
 		protected ProgressDialog 		dialog;
 		protected Context 				context;
 
-		public GetAllTask(Context context)
+		public SearchTask(Context context)
 		{
 			this.context = context;
 		}
@@ -100,7 +114,7 @@ public class SearchDiaryActivity extends Activity {
 		protected List<MyDiary> doInBackground(String... params) {
 
 			try {
-   				return (List<MyDiary>) DiaryApi.getAll(params[0]);
+   				return (List<MyDiary>) DiaryApi.searchDiaire(params[0]+"/"+params[1]);
 			}
 
 			catch (Exception e) {
@@ -115,14 +129,27 @@ public class SearchDiaryActivity extends Activity {
 			super.onPostExecute(result);
 
 			diaries = result;
-
-		   	String json = "[{\"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\", \"id\":\"222\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"}]";
-			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
-			diaries = new Gson().fromJson(json, collectionType);
-		   	Log.v("jsonjson", ""+diaries.size());
-		   	
+//			refresh();
 			if (dialog.isShowing())
 				dialog.dismiss();
+			
+//			List<MyDiary> temp = new ArrayList<MyDiary>();
+//			for(int i = 0; i < diaries.size(); i++) {
+//				MyDiary diary = diaries.get(i);
+//				if (!search.getText().toString().trim().equals("")) {
+//					if (diary.getDiaryInfo().contains(search.getText().toString().trim())) {
+//						temp.add(diary);
+//					}			
+//				}
+//			}
+			
+			DiaryAdapter adapter = new DiaryAdapter(SearchDiaryActivity.this, diaries);
+			searchInfo.setAdapter(adapter);
+			searchInfo.setVerticalScrollBarEnabled(true);
+			searchInfo.setOnItemClickListener(new ItemClickListener());
+			searchInfo.setSelection(0);
+			
+			
 		}
 	}
 	
@@ -144,7 +171,7 @@ public class SearchDiaryActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			refresh();
+//			refresh();
 		}
 	}
 	

@@ -77,13 +77,34 @@ public class Rest {
 		return result;
 	}
 	
+	
+	public static String searchDiaries(String info) {
+		String result = "";
+//		Log.v("namenamename",name);
+
+		try {
+			HttpGet getRequest = new HttpGet(getBase() + "/searchdiary/"+info);
+			Log.v("namenamename",getBase() + "/searchdiary/"+info);
+
+			getRequest.setHeader("accept", "application/json");
+			//getRequest.setHeader("accept","text/plain");
+			HttpResponse response = httpClient.execute(getRequest);
+			result = getResult(response).toString();
+		} catch (Exception e) {
+			Log.v("Donate","ASYNC ERROR" + e.getMessage());
+		}
+		Log.v("Donate","ASYNC ERROR" + result);
+
+		return result;
+	}
+	
 
 
 	// /////////////////////////////////////////////////////////////////////////////////////////////
-	public static String delete(String url) {
+	public static String delete(String id) {
 		String result = "";
 		try {
-			HttpDelete deleteRequest = new HttpDelete(getBase() + url);
+			HttpDelete deleteRequest = new HttpDelete(getBase() + "/delete/"+id);
 			deleteRequest.setHeader("Content-type", "application/json");
 			deleteRequest.setHeader("accept", "application/json");
 			deleteRequest.setHeader("accept","text/plain");
@@ -121,6 +142,32 @@ public class Rest {
 		}
 		return result;
 	}
+	
+	public static String deleteDiary(String json) {
+
+		String result = "";
+		String url = "/login";
+
+		try {
+			String strRequest = getBase() + url;
+			HttpPost postRequest = new HttpPost(strRequest);
+			postRequest.setHeader("Content-type", "application/json");
+			postRequest.setHeader("accept", "application/json");
+			postRequest.setHeader("accept","text/plain");
+			StringEntity s = new StringEntity(json);
+			s.setContentEncoding("UTF-8");
+			s.setContentType("application/json");
+			postRequest.setEntity(s);
+			HttpResponse response = httpClient.execute(postRequest);
+			result = getResult(response).toString();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	   	Log.v("resultresultresultresult", result);
+		return result;
+	}
+	
 	
 	
 	public static String login(String json) {

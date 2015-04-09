@@ -120,7 +120,7 @@ public class AddDiaryActivity extends Activity {
 		protected void onPreExecute() {
 			super.onPreExecute();	
 			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("register...");
+			this.dialog.setMessage("add diary...");
 			this.dialog.show();
 		}
 		
