@@ -5,10 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.json.simple.JSONObject;
-
-import com.diary.db.DBManager;
-import com.diary.models.Diary;
-
 import app.api.DiaryApi;
 import app.api.Rest;
 import app.diary.R;
@@ -18,7 +14,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,10 +70,7 @@ public class AddDiaryActivity extends Activity {
 		diaryTitle = (EditText)this.findViewById(R.id.edit_title);
 		back = (ImageView)this.findViewById(R.id.back_add_diary);
 		submit = (Button)this.findViewById(R.id.submit);
-
 		submit.setOnClickListener(new SubmitListener());
-
-		
 		back.setOnClickListener(new BackListener());
 		ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, 
 				R.array.weather, android.R.layout.simple_spinner_item);
@@ -113,7 +105,7 @@ public class AddDiaryActivity extends Activity {
 		}
 	}
 	
-	private class AddDiary extends AsyncTask<Object, Void, String> {
+	private class AddDiary extends AsyncTask<String, Void, String> {
 
 		protected ProgressDialog 		dialog;
 		protected Context 				context;
@@ -132,10 +124,9 @@ public class AddDiaryActivity extends Activity {
 			this.dialog.show();
 		}
 		
-		
-		
+	
 		@Override
-		protected String doInBackground(Object... params) {
+		protected String doInBackground(String... params) {
             try {
             	JSONObject json = new JSONObject(); 
             	json.put("id", 0);
@@ -144,7 +135,6 @@ public class AddDiaryActivity extends Activity {
             	json.put("user_name", params[0]);
 
 //            	Log.v("gurdjieff1", json.toJSONString());
-    
     			return (String) DiaryApi.addDiary(json.toJSONString());
 			}
 			catch (Exception e) {
@@ -170,29 +160,11 @@ public class AddDiaryActivity extends Activity {
 		}
 	}
 	
-	
-	
-	private void back(){
-		
 
-//		if ((!diaryTitle.getText().toString().trim().equals("")) && 
-//				(!diaryInfo.getText().toString().trim().equals(""))) {
-//			DBManager diaryDao = new DBManager(AddDiaryActivity.this);
-//			Diary diary = new Diary();
-//			diary.setDate(timeTextView.getText().toString());
-//			diary.setWeek(weekTextView.getText().toString());
-//			diary.setWeather(weatherSpinner.getSelectedItem().toString());
-//			diary.setDiaryTitle(diaryTitle.getText().toString());
-//			diary.setDiaryInfo(diaryInfo.getText().toString());
-//			diaryDao.insert(diary);
+	private void back(){
 			Intent intent = new Intent();
 			intent.setClass(AddDiaryActivity.this, MainActivity.class);
 			startActivity(intent);
 			finish();
-//			Toast.makeText(AddDiaryActivity.this, R.string.save_success, Toast.LENGTH_SHORT).show();
-//		}else {
-//			Toast.makeText(AddDiaryActivity.this, R.string.empty_info, Toast.LENGTH_SHORT).show();
-//			AddDiaryActivity.this.finish();
-//		}
 	}
 }

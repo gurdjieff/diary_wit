@@ -1,16 +1,7 @@
 package com.diary.activities;
 
-import java.net.PasswordAuthentication;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.jar.Attributes.Name;
-
 import org.json.simple.JSONObject;
 
-import com.diary.activities.LoginActivity.MyListener;
-
-import android.R.string;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.LoginFilter.UsernameFilterGeneric;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -91,7 +81,6 @@ public class RegisterActivity extends Activity {
 //					Log.v("username", username.getText().toString());
 //					Log.v("password1", password1.getText().toString());
 //
-
 				    new Register(RegisterActivity.this).execute(username.getText().toString().trim(), password1.getText().toString().trim()); 
 				}
 			}

@@ -1,14 +1,7 @@
 package com.diary.activities;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.List;
 
 import org.json.simple.JSONObject;
-
-import com.facebook.AppEventsLogger;
-import com.facebook.FacebookAuthorizationException;
-import com.facebook.FacebookOperationCanceledException;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -16,13 +9,6 @@ import com.facebook.model.GraphUser;
 import com.facebook.widget.FacebookDialog;
 import com.facebook.widget.LoginButton;
 import com.parse.ParseFacebookUtils;
-import com.parse.ParseObject;
-import com.diary.activities.MainActivity.MyListener;
-import com.dropbox.client2.ProgressListener;
-import com.dropbox.client2.DropboxAPI.Entry;
-import com.dropbox.client2.exception.DropboxException;
-import com.dropbox.client2.exception.DropboxUnlinkedException;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -32,7 +18,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -96,69 +81,23 @@ public class LoginActivity extends Activity {
         loginButton.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
             @Override
             public void onUserInfoFetched(GraphUser user) {
-            	if (user != null && user.getName() != null) {
-        			Toast.makeText(LoginActivity.this, "444", Toast.LENGTH_LONG).show();
+            	if (user != null && user.getName() != null) {        			
         			facebookUser = user.getId();
+        			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
+    				Editor editor=preferences.edit();
+    				if (checkbok.isChecked()) {
+    
+    					editor.putString("state", "login");
+    					editor.putString("username", facebookUser);
+    	
+    				} else {
+    					editor.putString("state", null);
+    				}
+    				
+    				editor.commit();
 				}
             }
         });
-	}
-	
-	private class FacebookLogin extends AsyncTask<Object, Void, String> {
-
-		protected ProgressDialog 		dialog;
-		protected Context 				context;
-
-		public FacebookLogin(Context context)
-		{
-			this.context = context;
-		}
-		
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();	
-			this.dialog = new ProgressDialog(context, 1);	
-			this.dialog.setMessage("login in...");
-			this.dialog.show();
-		}
-
-		@Override
-		protected String doInBackground(Object... params) {
-			try {
-
-            	JSONObject json = new JSONObject();  
-            	json.put("username", params[0]);
-            	json.put("password", params[1]);  
-            	Log.v("gurdjieff55", json.toJSONString());
-
-    			return (String) DiaryApi.login(json.toJSONString());
-			}
-			catch (Exception e) {
-				Log.v("Donate", "ERROR : " + e);
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if (dialog.isShowing()) {
-				dialog.dismiss();
-			}
-			
-			
-			preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
-			Editor editor=preferences.edit();
-			if (checkbok.isChecked()) {
-				editor.putString("state", "login");
-				editor.putString("state", "login");
-
-			} else {
-				editor.putString("state", facebookUser);
-			}
-			editor.commit();
-		}
 	}
 	
 	private class commonLogin extends AsyncTask<Object, Void, String> {
@@ -236,8 +175,7 @@ public class LoginActivity extends Activity {
       uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
 	  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	  Log.d("HelloFacebook", "Success!");
-	  new FacebookLogin(LoginActivity.this).execute(); 
-
+//	  new FacebookLogin(LoginActivity.this).execute(); 
       Intent intent = new Intent(LoginActivity.this,
 				MainActivity.class);
       startActivity(intent);
@@ -276,10 +214,6 @@ public class LoginActivity extends Activity {
 				}
 				break;
 			case R.id.button2:
-				
-				
-				
-				
 				intent = new Intent(LoginActivity.this,
 						RegisterActivity.class);
 				startActivity(intent);
@@ -290,5 +224,62 @@ public class LoginActivity extends Activity {
 				break;
 			}
 		}
+		
+//		private class FacebookLogin extends AsyncTask<Object, Void, String> {
+//
+//			protected ProgressDialog 		dialog;
+//			protected Context 				context;
+//
+//			public FacebookLogin(Context context)
+//			{
+//				this.context = context;
+//			}
+//			
+//			@Override
+//			protected void onPreExecute() {
+//				super.onPreExecute();	
+//				this.dialog = new ProgressDialog(context, 1);	
+//				this.dialog.setMessage("login in...");
+//				this.dialog.show();
+//			}
+//
+//			@Override
+//			protected String doInBackground(Object... params) {
+//				try {
+//
+//	            	JSONObject json = new JSONObject();  
+//	            	json.put("username", params[0]);
+//	            	json.put("password", params[1]);  
+//	            	Log.v("gurdjieff55", json.toJSONString());
+//
+//	    			return (String) DiaryApi.login(json.toJSONString());
+//				}
+//				catch (Exception e) {
+//					Log.v("Donate", "ERROR : " + e);
+//					e.printStackTrace();
+//				}
+//				return null;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(String result) {
+//				super.onPostExecute(result);
+//				if (dialog.isShowing()) {
+//					dialog.dismiss();
+//				}
+//				
+//				
+//				preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
+//				Editor editor=preferences.edit();
+//				if (checkbok.isChecked()) {
+//					editor.putString("state", "login");
+//					editor.putString("state", "login");
+//
+//				} else {
+//					editor.putString("state", facebookUser);
+//				}
+//				editor.commit();
+//			}
+//		}
 	}
 }

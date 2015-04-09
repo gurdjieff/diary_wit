@@ -124,24 +124,7 @@ public class Rest {
 	
 	
 	public static String login(String json) {
-		
-//		String result = "";
-//		try {
-//			HttpGet getRequest = new HttpGet(getBase() + "/getall");
-//			getRequest.setHeader("accept", "application/json");
-//			//getRequest.setHeader("accept","text/plain");
-//			HttpResponse response = httpClient.execute(getRequest);
-//			result = getResult(response).toString();
-//		} catch (Exception e) {
-//			Log.v("Donate","ASYNC ERROR" + e.getMessage());
-//		}
-//		Log.v("Donate","ASYNC ERROR" + result);
 
-		
-		
-	   	Log.v("3333", json);
-
-		
 		String result = "";
 		String url = "/login";
 

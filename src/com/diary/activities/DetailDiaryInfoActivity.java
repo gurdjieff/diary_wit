@@ -30,7 +30,6 @@ public class DetailDiaryInfoActivity extends Activity {
 		back = (ImageView)this.findViewById(R.id.back_detail_diary);
 		Bundle bundle = this.getIntent().getExtras();
 		title.setText(bundle.getString("title"));
-//		date.setText(bundle.getString("date")+"  "+bundle.getString("week")+"  "+bundle.getString("weather"));
 		date.setText("");
 
 		info.setText(bundle.getString("info"));

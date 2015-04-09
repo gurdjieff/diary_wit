@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import org.json.simple.JSONObject;
 
 import com.diary.db.DBManager;
-import com.diary.models.Diary;
 import com.diary.models.DiaryAdapter;
 import com.diary.models.MyDiary;
 import com.dropbox.client2.DropboxAPI;
@@ -20,7 +18,6 @@ import com.dropbox.client2.android.AndroidAuthSession;
 import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.exception.DropboxUnlinkedException;
 import com.dropbox.client2.session.AccessTokenPair;
-import com.dropbox.client2.session.AppKeyPair;
 
 
 
@@ -61,8 +58,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import app.api.DiaryApi;
 import app.api.Rest;
-//import app.activities.DonationAdapter;
-//import app.api.DonationApi;
 import app.diary.DiaryAppliction;
 import app.diary.R;
 
@@ -73,7 +68,6 @@ public class LookDiaryActivity extends Activity {
 	private ImageView back = null;
 	private ListView diaryInfo = null;
 	private DBManager manager = null;
-//	private List<Diary> diaries = null;
     private boolean mLoggedIn;
     private static final String TAG = "LookDiaryActivity";
     public int listPostion = 0;
@@ -133,7 +127,6 @@ public class LookDiaryActivity extends Activity {
 		DiaryAppliction app = (DiaryAppliction)getApplication();
 	    mApi = app.mDBApi;
 		refresh();
-//		myDialog();
 		back.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -171,8 +164,6 @@ public class LookDiaryActivity extends Activity {
 		protected List<MyDiary> doInBackground(String... params) {
 
 			try {
-				
-//            	Log.v("gurdjieff1", json.toJSONString());
    				return (List<MyDiary>) DiaryApi.getAll(params[0]);
 			}
 
@@ -191,14 +182,8 @@ public class LookDiaryActivity extends Activity {
 //			MyDiary m = (MyDiary)diaries[0];
 //		   	Log.v("toStringtoStringtoString", diaries.get(0).getDiaryTitle());
 //		   	Log.v("toStringtoStringtoString", "size"+diaries.size());
-
-//            Log.v("Error authenticating", ""+diaries.toString());
-
-//			DiaryAdapter adapter = new DiaryAdapter(context, diaries);
-//			listView.setAdapter(adapter);
-		   	
-		   	
-		   	String json = "[{\"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\", \"id\":\"222\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"}]";
+//			[{"id":0,"user_name":"medaymen","Diary_title":"2","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"3","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"4","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"6","Diary_text":"11"},{"id":0,"user_name":"medaymen","Diary_title":"7","Diary_text":"11"}]
+		   	String json = "[{\"id\":0, \"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":0}]";
 			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
 			diaries = new Gson().fromJson(json, collectionType);
 		   	Log.v("jsonjson", ""+diaries.size());
@@ -220,47 +205,9 @@ public class LookDiaryActivity extends Activity {
 	
 	
 	private void refresh (){
-//		new GetAllTask(this).execute("/getall");
-//		manager.query(diaries);
-//		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
-//		diaryInfo.setAdapter(adapter);
-//		diaryInfo.setVerticalScrollBarEnabled(true);
-//		diaryInfo.setOnItemClickListener(new ItemClickListener());
-//		diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
-//		diaryInfo.setSelection(0);
+
 	}
 
-	private void myDialog() {
-		if (diaries.isEmpty() || diaries.size() < 0) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(getString(R.string.prompt));
-			builder.setMessage(getString(R.string.is_add_diary));
-			builder.setPositiveButton(getString(R.string.ok),
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							Intent intent = new Intent();
-							intent.setClass(LookDiaryActivity.this,
-									AddDiaryActivity.class);
-							startActivity(intent);
-							finish();
-						}
-					});
-			builder.setNegativeButton(getString(R.string.cancel),
-					new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							finish();
-						}
-					});
-			builder.setCancelable(false);
-			builder.create().show();
-		}
-	}
 
 	class ItemClickListener implements OnItemClickListener {
 
@@ -273,9 +220,6 @@ public class LookDiaryActivity extends Activity {
 					DetailDiaryInfoActivity.class);
 			intent.putExtra("title", diaries.get(position).getDiaryTitle());
 			intent.putExtra("info", diaries.get(position).getDiaryInfo());
-//			intent.putExtra("date", diaries.get(position).getDate());
-//			intent.putExtra("week", diaries.get(position).getWeek());
-//			intent.putExtra("weather", diaries.get(position).getWeather());
 			startActivity(intent);
 			overridePendingTransition(android.R.anim.fade_in,
 					android.R.anim.fade_out);

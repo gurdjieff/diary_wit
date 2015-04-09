@@ -1,20 +1,24 @@
 package com.diary.activities;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -22,22 +26,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import app.api.DiaryApi;
+import app.api.Rest;
 import app.diary.R;
 
 import com.diary.db.DBManager;
-import com.diary.models.Diary;
 import com.diary.models.DiaryAdapter;
+import com.diary.models.MyDiary;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class SearchDiaryActivity extends Activity {
 	private ImageView back = null;
 	private EditText search = null;
 	private ListView searchInfo = null;
 	private DBManager manager = null;
-	private List<Diary> diaries = null;
+	public List <MyDiary> diaries = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Rest.setup();
 		init();
 	}
 	@Override
@@ -49,7 +59,7 @@ public class SearchDiaryActivity extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.search_diary_info);
 		manager = new DBManager(this);
-		diaries = new ArrayList<Diary>();
+		diaries = new ArrayList<MyDiary>();
 		search = (EditText)this.findViewById(R.id.search_edit);
 		back = (ImageView)this.findViewById(R.id.back_search_diary);
 		searchInfo = (ListView)this.findViewById(R.id.search_diary_info_list);
@@ -62,6 +72,58 @@ public class SearchDiaryActivity extends Activity {
 				finish();
 			}
 		});
+		
+		SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
+		String username=preferences.getString("username", null);
+		new GetAllTask(this).execute(username);
+	}
+	
+	private class GetAllTask extends AsyncTask<String, Void, List<MyDiary>> {
+
+		protected ProgressDialog 		dialog;
+		protected Context 				context;
+
+		public GetAllTask(Context context)
+		{
+			this.context = context;
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();	
+			this.dialog = new ProgressDialog(context, 1);	
+			this.dialog.setMessage("Retrieving Diary List");
+			this.dialog.show();
+		}
+
+		@Override
+		protected List<MyDiary> doInBackground(String... params) {
+
+			try {
+   				return (List<MyDiary>) DiaryApi.getAll(params[0]);
+			}
+
+			catch (Exception e) {
+				Log.v("ASYNC", "ERROR : " + e);
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(List<MyDiary> result) {
+			super.onPostExecute(result);
+
+			diaries = result;
+
+		   	String json = "[{\"user_name\":\"222\", \"Diary_title\":\"title\", \"Diary_text\":\"content\", \"id\":\"222\"},{\"user_name\":\"222\", \"Diary_title\":\"222\", \"Diary_text\":\"222\", \"id\":\"222\"}]";
+			Type collectionType = new TypeToken<List<MyDiary>>() {}.getType();
+			diaries = new Gson().fromJson(json, collectionType);
+		   	Log.v("jsonjson", ""+diaries.size());
+		   	
+			if (dialog.isShowing())
+				dialog.dismiss();
+		}
 	}
 	
 	class SearchInfoListener implements TextWatcher{
@@ -82,24 +144,26 @@ public class SearchDiaryActivity extends Activity {
 		@Override
 		public void onTextChanged(CharSequence s, int start, int before,
 				int count) {
-			if (!search.getText().toString().trim().equals("")) {
-				refresh();
-			}else {
-				diaries.clear();
-				InputMethodManager manager = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE); 
-				manager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-			}
+			refresh();
 		}
 	}
 	
 	private void refresh(){
-//		manager.dimSearch(search,diaries);
-//		DiaryAdapter adapter = new DiaryAdapter(this, diaries);
-//		searchInfo.setAdapter(adapter);
-//		searchInfo.setVerticalScrollBarEnabled(true);
-//		searchInfo.setOnItemClickListener(new ItemClickListener());
-//		searchInfo.setOnItemLongClickListener(new ItemLongPressListener());
-//		searchInfo.setSelection(0);
+		List<MyDiary> temp = new ArrayList<MyDiary>();
+		for(int i = 0; i < diaries.size(); i++) {
+			MyDiary diary = diaries.get(i);
+			if (!search.getText().toString().trim().equals("")) {
+				if (diary.getDiaryInfo().contains(search.getText().toString().trim())) {
+					temp.add(diary);
+				}			
+			}
+		}
+		
+		DiaryAdapter adapter = new DiaryAdapter(this, temp);
+		searchInfo.setAdapter(adapter);
+		searchInfo.setVerticalScrollBarEnabled(true);
+		searchInfo.setOnItemClickListener(new ItemClickListener());
+		searchInfo.setSelection(0);
 	}
 	
 	class ItemClickListener implements OnItemClickListener {
@@ -113,9 +177,6 @@ public class SearchDiaryActivity extends Activity {
 					DetailDiaryInfoActivity.class);
 			intent.putExtra("title", diaries.get(position).getDiaryTitle());
 			intent.putExtra("info", diaries.get(position).getDiaryInfo());
-			intent.putExtra("date", diaries.get(position).getDate());
-			intent.putExtra("week", diaries.get(position).getWeek());
-			intent.putExtra("weather", diaries.get(position).getWeather());
 			startActivity(intent);
 			overridePendingTransition(android.R.anim.fade_in,
 					android.R.anim.fade_out);

@@ -25,7 +25,6 @@ public class AccessActivity extends Activity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.access);
@@ -34,12 +33,9 @@ public class AccessActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				sp=getSharedPreferences("pass", Context.MODE_PRIVATE);
 				String passwordStr=sp.getString("password", null);
 				Intent intent = null;
-
-//				System.out.println(passwordStr);
 				if (passwordStr == null) {
 					intent = new Intent(AccessActivity.this, MainActivity.class);  
 			        startActivity(intent);
