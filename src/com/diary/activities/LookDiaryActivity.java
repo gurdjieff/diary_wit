@@ -339,6 +339,8 @@ public class LookDiaryActivity extends Activity {
 	         }
 		
 	    if (mLoggedIn) {
+		    Log.e("listPostionlistPostion", ""+listPostion);
+	    	listPostion = position;		    
 		    new DropboxSubmit(this).execute(); 
 		} else {
             if (USE_OAUTH1) {
@@ -369,9 +371,6 @@ public class LookDiaryActivity extends Activity {
 
 			@Override
 			protected String doInBackground(Object... params) {
-				
-                Log.v("gurdjieff", ""+params[0]);
-
 				String res = null;
 				try {
 					String fileName = diaries.get(

@@ -142,14 +142,13 @@ public class SearchDiaryActivity extends Activity {
 //					}			
 //				}
 //			}
-			
-			DiaryAdapter adapter = new DiaryAdapter(SearchDiaryActivity.this, diaries);
-			searchInfo.setAdapter(adapter);
-			searchInfo.setVerticalScrollBarEnabled(true);
-			searchInfo.setOnItemClickListener(new ItemClickListener());
-			searchInfo.setSelection(0);
-			
-			
+			if (result != null) {
+				DiaryAdapter adapter = new DiaryAdapter(SearchDiaryActivity.this, diaries);
+				searchInfo.setAdapter(adapter);
+				searchInfo.setVerticalScrollBarEnabled(true);
+				searchInfo.setOnItemClickListener(new ItemClickListener());
+				searchInfo.setSelection(0);
+			}
 		}
 	}
 	

@@ -148,14 +148,11 @@ public class LoginActivity extends Activity {
 				preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);
 				Editor editor=preferences.edit();
 				if (checkbok.isChecked()) {
-					
 					editor.putString("state", "login");
-					editor.putString("username", username.getText().toString());
-	
 				} else {
 					editor.putString("state", null);
 				}
-				
+				editor.putString("username", username.getText().toString());
 				editor.commit();
 				
 				Intent intent = new Intent(LoginActivity.this,
