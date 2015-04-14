@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class MainActivity extends Activity {
@@ -28,6 +29,8 @@ public class MainActivity extends Activity {
 	private ImageButton searchDiary = null;
 	private ImageButton passDiary = null;
 	private ImageButton exitDiary = null;
+	private Button feedback = null;
+
 
 
 	
@@ -41,12 +44,15 @@ public class MainActivity extends Activity {
 		searchDiary = (ImageButton) this.findViewById(R.id.diary_search);
 		passDiary = (ImageButton) this.findViewById(R.id.diary_pass);
 		exitDiary = (ImageButton) this.findViewById(R.id.diary_exit);
+		feedback = (Button) this.findViewById(R.id.feedback_button);
 
 		addDiary.setOnClickListener(new MyListener());
 		lookDiary.setOnClickListener(new MyListener());
 		searchDiary.setOnClickListener(new MyListener());
 		passDiary.setOnClickListener(new MyListener());
 		exitDiary.setOnClickListener(new MyListener());
+		feedback.setOnClickListener(new MyListener());
+
 	   	
 	}
 

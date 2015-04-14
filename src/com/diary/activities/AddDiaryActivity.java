@@ -82,6 +82,10 @@ public class AddDiaryActivity extends Activity {
 	class SubmitListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
+			if (diaryTitle.getText().toString().length()==0 || diaryInfo.getText().toString().length() == 0) {
+				Toast.makeText(AddDiaryActivity.this, "please complete input information", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
 			String username=preferences.getString("username", null);
 		    new AddDiary(AddDiaryActivity.this).execute(username,diaryTitle.getText().toString().trim(), diaryInfo.getText().toString()); 		}

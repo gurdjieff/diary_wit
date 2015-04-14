@@ -86,6 +86,10 @@ public class SearchDiaryActivity extends Activity {
 	class SearchListener implements OnClickListener{
 		@Override
 		public void onClick(View v) {
+			if (search.getText().toString().length()==0) {
+				Toast.makeText(SearchDiaryActivity.this, "please complete input information", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			SharedPreferences preferences=getSharedPreferences("loginState", Context.MODE_PRIVATE);				
 			String username=preferences.getString("username", null);
 		    new SearchTask(SearchDiaryActivity.this).execute(username, search.getText().toString().trim()); 	

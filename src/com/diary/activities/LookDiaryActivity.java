@@ -177,14 +177,16 @@ public class LookDiaryActivity extends Activity {
 		@Override
 		protected void onPostExecute(List<MyDiary> result) {
 			super.onPostExecute(result);
-
-			diaries = result;
-			DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
-			diaryInfo.setAdapter(adapter);
-			diaryInfo.setVerticalScrollBarEnabled(true);
-			diaryInfo.setOnItemClickListener(new ItemClickListener());
-			diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
-			diaryInfo.setSelection(0);
+			if (result != null) {
+				diaries = result;
+				DiaryAdapter adapter = new DiaryAdapter(LookDiaryActivity.this, diaries);
+				diaryInfo.setAdapter(adapter);
+				diaryInfo.setVerticalScrollBarEnabled(true);
+				diaryInfo.setOnItemClickListener(new ItemClickListener());
+				diaryInfo.setOnItemLongClickListener(new ItemLongPressListener());
+				diaryInfo.setSelection(0);
+			}
+			
 
 			if (dialog.isShowing())
 				dialog.dismiss();

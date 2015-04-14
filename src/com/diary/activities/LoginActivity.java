@@ -169,8 +169,8 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	  super.onActivityResult(requestCode, resultCode, data);
-      uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
-	  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
+//      uiHelper.onActivityResult(requestCode, resultCode, data, dialogCallback);
+//	  ParseFacebookUtils.finishAuthentication(requestCode, resultCode, data);
 	  Log.d("HelloFacebook", "Success!");
 //	  new FacebookLogin(LoginActivity.this).execute(); 
       Intent intent = new Intent(LoginActivity.this,
